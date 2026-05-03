@@ -22,8 +22,10 @@ across two NLP datasets, three correction policies, and three seeds.
 alternative system simultaneously matches it on novel-class recovery and
 original-distribution retention.
 
-📄 **Read the [full draft paper (~6 000 words)](paper/paper.md)** — methodology,
-all 13 systems with hyperparameters, ablations, limitations.
+📄 **Read the full draft paper (~6 000 words):**
+[`paper.pdf`](paper/paper.pdf) (rendered)
+or [`paper.md`](paper/paper.md) (Markdown source).
+Methodology, all 13 systems with hyperparameters, ablations, limitations.
 
 ```
    stream  ──►  predict  ──►  if wrong, correct(text, label)
