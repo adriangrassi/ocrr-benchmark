@@ -1,0 +1,46 @@
+cff-version: 1.2.0
+message: "If you use OCRR in your research, please cite the following."
+type: software
+title: "OCRR: Online Correction Recovery Rate Benchmark"
+abstract: >-
+  A benchmark measuring how fast classification systems recover from
+  distribution shift via online correction. OCRR streams test queries
+  drawn from a shifted distribution, lets systems update on every
+  wrong prediction, and reports both novel-class recovery accuracy and
+  original-distribution retention. Includes a 13-system comparison
+  spanning continual-learning baselines (EWC, A-GEM, LwF), retrieval
+  hybrids (kNN-LM), online-ML libraries (river), parameter-efficient
+  fine-tuning (LoRA on DeBERTa-v3-large), and an append-only retrieval
+  substrate. Substrate dominates the storage-vs-recovery Pareto in all
+  6 (dataset × policy) cells.
+authors:
+  - family-names: Grassi
+    given-names: Adrian
+    orcid: "https://orcid.org/0009-0007-4890-5393"
+version: 0.1.0
+date-released: "2026-05-03"
+license: MIT
+repository-code: "https://github.com/adriangrassi/ocrr-benchmark"
+url: "https://github.com/adriangrassi/ocrr-benchmark"
+keywords:
+  - machine-learning
+  - continual-learning
+  - online-learning
+  - benchmark
+  - distribution-shift
+  - intent-classification
+  - retrieval-augmented
+  - lifelong-learning
+preferred-citation:
+  type: generic
+  title: >-
+    OCRR: Online Correction Recovery Rate — A Benchmark for
+    Classification Systems Under Distribution Shift
+  authors:
+    - family-names: Grassi
+      given-names: Adrian
+      orcid: "https://orcid.org/0009-0007-4890-5393"
+  year: 2026
+  notes: >-
+    arXiv preprint, NeurIPS Datasets & Benchmarks 2026 submission.
+    arXiv ID will be added once the submission is live.
