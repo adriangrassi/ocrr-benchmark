@@ -1,0 +1,14 @@
+==============================================================================
+  OCRR LLM-ICL spot-check (banking77, oracle, single seed)
+==============================================================================
+[load] Banking77 + cached bge-large embeddings...
+  held-out classes: ['activate_my_card', 'age_limit', 'automatic_top_up', 'card_delivery_estimate', 'card_swallowed', 'change_pin', 'extra_charge_on_statement', 'lost_or_stolen_phone', 'top_up_by_card_charge', 'topping_up_by_card']
+  seed:    8808 entries
+  stream:   100 entries (capped from full 1195)
+  eval-novel: 30 ; eval-original: 30
+
+[build] llm_icl with model=qwen2.5:14b
+[build] substrate (same config)
+
+[run] llm_icl ...
+  [step    0  corr   0]  novel=0.4667  original=0.5333

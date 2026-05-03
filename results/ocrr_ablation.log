@@ -1,0 +1,39 @@
+==============================================================================
+  OCRR vote-rule ablation — substrate variants
+  cell: banking77 / oracle / seeds=[0, 1, 2]
+==============================================================================
+
+[seed=0]
+            substrate_k1  novel=0.9150  orig=0.9375  corr=187  init=3.6s
+        substrate_sumsim  novel=0.8925  orig=0.9450  corr=240  init=4.3s
+    substrate_count_only  novel=0.9050  orig=0.9475  corr=208  init=4.3s
+    substrate_no_recency  novel=0.9050  orig=0.9475  corr=208  init=4.4s
+        substrate (full)  novel=0.9050  orig=0.9475  corr=208  init=4.3s
+
+[seed=1]
+            substrate_k1  novel=0.9400  orig=0.9275  corr=191  init=4.2s
+        substrate_sumsim  novel=0.9175  orig=0.9400  corr=237  init=4.3s
+    substrate_count_only  novel=0.9375  orig=0.9425  corr=211  init=4.4s
+    substrate_no_recency  novel=0.9375  orig=0.9425  corr=211  init=4.3s
+        substrate (full)  novel=0.9375  orig=0.9425  corr=211  init=4.3s
+
+[seed=2]
+            substrate_k1  novel=0.8650  orig=0.9500  corr=360  init=3.5s
+        substrate_sumsim  novel=0.8675  orig=0.9550  corr=403  init=3.7s
+    substrate_count_only  novel=0.8725  orig=0.9600  corr=377  init=3.6s
+    substrate_no_recency  novel=0.8725  orig=0.9600  corr=377  init=3.5s
+        substrate (full)  novel=0.8725  orig=0.9600  corr=377  init=3.9s
+
+[done] 242s
+[csv] research\ocrr_ablation_summary.csv
+
+==========================================================================================
+  Vote-rule ablation summary (banking77 / oracle, 3 seeds)
+==========================================================================================
+                  system    final_novel     final_orig    ->10%    ->50%    ->70%    ->90%
+  --------------------------------------------------------------------------------------
+            substrate_k1   0.9067±0.031   0.9383±0.009       30       38       74      138
+    substrate_count_only   0.9050±0.027   0.9500±0.007       35       66      103      174
+    substrate_no_recency   0.9050±0.027   0.9500±0.007       35       66      103      174
+        substrate (full)   0.9050±0.027   0.9500±0.007       35       66      103      174
+        substrate_sumsim   0.8925±0.020   0.9467±0.006       39       73      123      198

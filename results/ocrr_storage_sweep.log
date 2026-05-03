@@ -1,0 +1,74 @@
+==============================================================================
+  OCRR storage-vs-recovery sweep — bounded substrate variants
+  budgets=[100, 500, 1000, 5000]  seeds=[0, 1, 2]
+  cell: banking77 / oracle
+==============================================================================
+
+[seed=0]
+                         substrate  novel=0.9050  orig=0.9475  corr=208  init=2.8s
+                     online_linear  novel=0.4450  orig=0.9325  corr=1073  init=1.6s
+                             a_gem  novel=0.4000  orig=0.9425  corr=1077  init=0.6s
+                      river_logreg  novel=0.7175  orig=0.0000  corr=245  init=63.3s
+   bounded_substrate_reservoir_100  novel=0.6325  orig=0.4825  corr=685  init=0.0s buf=100
+        bounded_substrate_fifo_100  novel=0.9825  orig=0.0125  corr=52  init=0.0s buf=100
+   bounded_substrate_reservoir_500  novel=0.7350  orig=0.8150  corr=562  init=0.0s buf=500
+        bounded_substrate_fifo_500  novel=0.9825  orig=0.0700  corr=68  init=0.0s buf=500
+  bounded_substrate_reservoir_1000  novel=0.8050  orig=0.8925  corr=474  init=0.0s buf=1000
+       bounded_substrate_fifo_1000  novel=0.9625  orig=0.1200  corr=93  init=0.0s buf=1000
+  bounded_substrate_reservoir_5000  novel=0.8825  orig=0.9425  corr=230  init=0.0s buf=5000
+       bounded_substrate_fifo_5000  novel=0.9300  orig=0.5550  corr=147  init=0.0s buf=5000
+  seed took 182.4s (elapsed 182s)
+
+[seed=1]
+                         substrate  novel=0.9375  orig=0.9425  corr=211  init=3.2s
+                     online_linear  novel=0.5250  orig=0.9125  corr=1071  init=0.6s
+                             a_gem  novel=0.4700  orig=0.9250  corr=1088  init=0.6s
+                      river_logreg  novel=0.9250  orig=0.0000  corr=208  init=67.2s
+   bounded_substrate_reservoir_100  novel=0.2825  orig=0.5250  corr=1056  init=0.0s buf=100
+        bounded_substrate_fifo_100  novel=0.9950  orig=0.0150  corr=46  init=0.0s buf=100
+   bounded_substrate_reservoir_500  novel=0.8050  orig=0.8425  corr=557  init=0.0s buf=500
+        bounded_substrate_fifo_500  novel=0.9800  orig=0.0575  corr=61  init=0.0s buf=500
+  bounded_substrate_reservoir_1000  novel=0.8275  orig=0.8975  corr=405  init=0.0s buf=1000
+       bounded_substrate_fifo_1000  novel=0.9675  orig=0.1025  corr=79  init=0.0s buf=1000
+  bounded_substrate_reservoir_5000  novel=0.9175  orig=0.9400  corr=258  init=0.0s buf=5000
+       bounded_substrate_fifo_5000  novel=0.9400  orig=0.5350  corr=184  init=0.0s buf=5000
+  seed took 210.4s (elapsed 393s)
+
+[seed=2]
+                         substrate  novel=0.8725  orig=0.9600  corr=377  init=3.3s
+                     online_linear  novel=0.6600  orig=0.9350  corr=1224  init=0.7s
+                             a_gem  novel=0.5725  orig=0.9400  corr=1271  init=0.6s
+                      river_logreg  novel=0.9575  orig=0.0000  corr=262  init=68.1s
+   bounded_substrate_reservoir_100  novel=0.5350  orig=0.5200  corr=1017  init=0.0s buf=100
+        bounded_substrate_fifo_100  novel=0.9850  orig=0.0150  corr=73  init=0.0s buf=100
+   bounded_substrate_reservoir_500  novel=0.6375  orig=0.8650  corr=846  init=0.0s buf=500
+        bounded_substrate_fifo_500  novel=0.9700  orig=0.0550  corr=96  init=0.0s buf=500
+  bounded_substrate_reservoir_1000  novel=0.7875  orig=0.9000  corr=623  init=0.0s buf=1000
+       bounded_substrate_fifo_1000  novel=0.9600  orig=0.1250  corr=129  init=0.0s buf=1000
+  bounded_substrate_reservoir_5000  novel=0.8475  orig=0.9475  corr=422  init=0.0s buf=5000
+       bounded_substrate_fifo_5000  novel=0.8950  orig=0.5650  corr=303  init=0.0s buf=5000
+  seed took 241.5s (elapsed 634s)
+
+[done] sweep took 634s
+[csv] research\ocrr_storage_sweep_results.csv
+[csv] research\ocrr_storage_sweep_summary.csv
+
+==============================================================================================================
+  Storage-vs-recovery summary (banking77/oracle, 3 seeds, mean ± std)
+==============================================================================================================
+                            system      buf    final_novel     final_orig   ->10%   ->50%   ->70%
+  ------------------------------------------------------------------------------------------------------
+                         substrate    (N/A)   0.9050±0.027   0.9500±0.007      35      66     103
+  bounded_substrate_reservoir_5000     5000   0.8825±0.029   0.9433±0.003      41      84     135
+  bounded_substrate_reservoir_1000     1000   0.8067±0.016   0.8967±0.003      45     175     351
+   bounded_substrate_reservoir_500      500   0.7258±0.069   0.8408±0.020      61     418     521
+   bounded_substrate_reservoir_100      100   0.4833±0.147   0.5092±0.019     209     721   never
+       bounded_substrate_fifo_5000     5000   0.9217±0.019   0.5517±0.012      31      38      63
+       bounded_substrate_fifo_1000     1000   0.9633±0.003   0.1158±0.010      21      21      25
+        bounded_substrate_fifo_500      500   0.9775±0.005   0.0608±0.007      18      18      18
+        bounded_substrate_fifo_100      100   0.9875±0.005   0.0142±0.001      12      12      12
+                             a_gem    (N/A)   0.4808±0.071   0.9358±0.008     870    1267   never
+                     online_linear    (N/A)   0.5433±0.089   0.9267±0.010     853    1103   never
+                      river_logreg    (N/A)   0.8667±0.106   0.0000±0.000      45     123     134
+[plot] research\ocrr_storage_sweep_curves.png
+[plot] research\ocrr_storage_sweep_pareto.png

@@ -1,0 +1,177 @@
+==============================================================================
+  OCRR scope C — sweep
+  datasets=['banking77', 'clinc150']
+  policies=['oracle', 'random50', 'random10']
+  seeds=[0, 1, 2]
+  4 systems x 18 cells = 72 runs
+==============================================================================
+
+[1/18] banking77 / policy=oracle / seed=0
+         substrate  novel=0.8975  orig=0.9650  corr=207
+        static_knn  novel=0.0000  orig=0.9700  corr=1195
+     static_linear  novel=0.0000  orig=0.9625  corr=1195
+     online_linear  novel=0.4225  orig=0.9450  corr=1073
+  cell took 24.9s (elapsed 25s)
+
+[2/18] banking77 / policy=oracle / seed=1
+         substrate  novel=0.9275  orig=0.9425  corr=222
+        static_knn  novel=0.0000  orig=0.9450  corr=1248
+     static_linear  novel=0.0000  orig=0.9475  corr=1248
+     online_linear  novel=0.5150  orig=0.9200  corr=1070
+  cell took 23.5s (elapsed 48s)
+
+[3/18] banking77 / policy=oracle / seed=2
+         substrate  novel=0.8800  orig=0.9450  corr=371
+        static_knn  novel=0.0000  orig=0.9550  corr=1517
+     static_linear  novel=0.0000  orig=0.9450  corr=1517
+     online_linear  novel=0.6250  orig=0.9175  corr=1217
+  cell took 26.4s (elapsed 75s)
+
+[4/18] banking77 / policy=random50 / seed=0
+         substrate  novel=0.8675  orig=0.9675  corr=156
+        static_knn  novel=0.0000  orig=0.9700  corr=607
+     static_linear  novel=0.0000  orig=0.9625  corr=615
+     online_linear  novel=0.0000  orig=0.9550  corr=596
+  cell took 23.8s (elapsed 99s)
+
+[5/18] banking77 / policy=random50 / seed=1
+         substrate  novel=0.8975  orig=0.9425  corr=146
+        static_knn  novel=0.0000  orig=0.9450  corr=623
+     static_linear  novel=0.0000  orig=0.9475  corr=577
+     online_linear  novel=0.0075  orig=0.9375  corr=595
+  cell took 24.3s (elapsed 123s)
+
+[6/18] banking77 / policy=random50 / seed=2
+         substrate  novel=0.8450  orig=0.9525  corr=261
+        static_knn  novel=0.0000  orig=0.9550  corr=764
+     static_linear  novel=0.0000  orig=0.9450  corr=761
+     online_linear  novel=0.0275  orig=0.9425  corr=769
+  cell took 27.9s (elapsed 151s)
+
+[7/18] banking77 / policy=random10 / seed=0
+         substrate  novel=0.6475  orig=0.9700  corr=57
+        static_knn  novel=0.0000  orig=0.9700  corr=121
+     static_linear  novel=0.0000  orig=0.9625  corr=137
+     online_linear  novel=0.0000  orig=0.9625  corr=131
+  cell took 22.8s (elapsed 174s)
+
+[8/18] banking77 / policy=random10 / seed=1
+         substrate  novel=0.7350  orig=0.9450  corr=64
+        static_knn  novel=0.0000  orig=0.9450  corr=133
+     static_linear  novel=0.0000  orig=0.9475  corr=106
+     online_linear  novel=0.0000  orig=0.9450  corr=120
+  cell took 23.2s (elapsed 197s)
+
+[9/18] banking77 / policy=random10 / seed=2
+         substrate  novel=0.6075  orig=0.9525  corr=90
+        static_knn  novel=0.0000  orig=0.9550  corr=134
+     static_linear  novel=0.0000  orig=0.9450  corr=160
+     online_linear  novel=0.0000  orig=0.9475  corr=162
+  cell took 28.2s (elapsed 225s)
+
+[10/18] clinc150 / policy=oracle / seed=0
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+         substrate  novel=0.8800  orig=0.7975  corr=184
+        static_knn  novel=0.0000  orig=0.8050  corr=1000
+     static_linear  novel=0.0000  orig=0.8750  corr=1000
+     online_linear  novel=0.0933  orig=0.8050  corr=996
+  cell took 28.5s (elapsed 253s)
+
+[11/18] clinc150 / policy=oracle / seed=1
+         substrate  novel=0.8433  orig=0.8175  corr=219
+        static_knn  novel=0.0000  orig=0.8250  corr=1000
+     static_linear  novel=0.0000  orig=0.9100  corr=1000
+     online_linear  novel=0.1300  orig=0.8475  corr=995
+  cell took 25.4s (elapsed 279s)
+
+[12/18] clinc150 / policy=oracle / seed=2
+         substrate  novel=0.8867  orig=0.7975  corr=172
+        static_knn  novel=0.0000  orig=0.8025  corr=1000
+     static_linear  novel=0.0000  orig=0.9150  corr=1000
+     online_linear  novel=0.1133  orig=0.8375  corr=988
+  cell took 25.7s (elapsed 305s)
+
+[13/18] clinc150 / policy=random50 / seed=0
+         substrate  novel=0.8600  orig=0.7975  corr=144
+        static_knn  novel=0.0000  orig=0.8050  corr=506
+     static_linear  novel=0.0000  orig=0.8750  corr=529
+     online_linear  novel=0.0000  orig=0.8250  corr=493
+  cell took 25.5s (elapsed 330s)
+
+[14/18] clinc150 / policy=random50 / seed=1
+         substrate  novel=0.8067  orig=0.8125  corr=148
+        static_knn  novel=0.0000  orig=0.8250  corr=497
+     static_linear  novel=0.0000  orig=0.9100  corr=459
+     online_linear  novel=0.0000  orig=0.8675  corr=473
+  cell took 25.2s (elapsed 355s)
+
+[15/18] clinc150 / policy=random50 / seed=2
+         substrate  novel=0.8267  orig=0.7975  corr=131
+        static_knn  novel=0.0000  orig=0.8025  corr=483
+     static_linear  novel=0.0000  orig=0.9150  corr=512
+     online_linear  novel=0.0000  orig=0.8550  corr=501
+  cell took 25.6s (elapsed 381s)
+
+[16/18] clinc150 / policy=random10 / seed=0
+         substrate  novel=0.6433  orig=0.8000  corr=57
+        static_knn  novel=0.0000  orig=0.8050  corr=105
+     static_linear  novel=0.0000  orig=0.8750  corr=122
+     online_linear  novel=0.0000  orig=0.8625  corr=110
+  cell took 24.9s (elapsed 406s)
+
+[17/18] clinc150 / policy=random10 / seed=1
+         substrate  novel=0.6400  orig=0.8150  corr=61
+        static_knn  novel=0.0000  orig=0.8250  corr=98
+     static_linear  novel=0.0000  orig=0.9100  corr=83
+     online_linear  novel=0.0000  orig=0.8950  corr=95
+  cell took 25.8s (elapsed 431s)
+
+[18/18] clinc150 / policy=random10 / seed=2
+         substrate  novel=0.6267  orig=0.7950  corr=54
+        static_knn  novel=0.0000  orig=0.8025  corr=84
+     static_linear  novel=0.0000  orig=0.9150  corr=116
+     online_linear  novel=0.0000  orig=0.9025  corr=107
+  cell took 23.0s (elapsed 454s)
+
+[done] sweep took 454s
+[csv] research\ocrr_sweep_results.csv
+[csv] research\ocrr_sweep_summary.csv
+
+====================================================================================================
+  Aggregated summary (mean +/- std over seeds)
+====================================================================================================
+     dataset     policy          system    final_novel     final_orig      ->10%      ->50%      ->70%
+  ------------------------------------------------------------------------------------------------
+   banking77     oracle   online_linear  0.5208+/-0.083  0.9275+/-0.012   835+/-39  1112+/-42   never(0)
+   banking77     oracle      static_knn  0.0000+/-0.000  0.9567+/-0.010   never(0)   never(0)   never(0)
+   banking77     oracle   static_linear  0.0000+/-0.000  0.9517+/-0.008   never(0)   never(0)   never(0)
+   banking77     oracle       substrate  0.9017+/-0.020  0.9508+/-0.010     35+/-5    68+/-21   102+/-39
+   banking77   random10   online_linear  0.0000+/-0.000  0.9517+/-0.008   never(0)   never(0)   never(0)
+   banking77   random10      static_knn  0.0000+/-0.000  0.9567+/-0.010   never(0)   never(0)   never(0)
+   banking77   random10   static_linear  0.0000+/-0.000  0.9517+/-0.008   never(0)   never(0)   never(0)
+   banking77   random10       substrate  0.6633+/-0.053  0.9558+/-0.010     10+/-7    42+/-15     59+/-0
+   banking77   random50   online_linear  0.0117+/-0.012  0.9450+/-0.007   never(0)   never(0)   never(0)
+   banking77   random50      static_knn  0.0000+/-0.000  0.9567+/-0.010   never(0)   never(0)   never(0)
+   banking77   random50   static_linear  0.0000+/-0.000  0.9517+/-0.008   never(0)   never(0)   never(0)
+   banking77   random50       substrate  0.8700+/-0.022  0.9542+/-0.010     21+/-1    50+/-17    87+/-31
+    clinc150     oracle   online_linear  0.1122+/-0.015  0.8300+/-0.018    991+/-3   never(0)   never(0)
+    clinc150     oracle      static_knn  0.0000+/-0.000  0.8108+/-0.010   never(0)   never(0)   never(0)
+    clinc150     oracle   static_linear  0.0000+/-0.000  0.9000+/-0.018   never(0)   never(0)   never(0)
+    clinc150     oracle       substrate  0.8700+/-0.019  0.8042+/-0.009     39+/-3     39+/-3    74+/-14
+    clinc150   random10   online_linear  0.0000+/-0.000  0.8867+/-0.017   never(0)   never(0)   never(0)
+    clinc150   random10      static_knn  0.0000+/-0.000  0.8108+/-0.010   never(0)   never(0)   never(0)
+    clinc150   random10   static_linear  0.0000+/-0.000  0.9000+/-0.018   never(0)   never(0)   never(0)
+    clinc150   random10       substrate  0.6367+/-0.007  0.8033+/-0.008      8+/-1     37+/-1   never(0)
+    clinc150   random50   online_linear  0.0000+/-0.000  0.8492+/-0.018   never(0)   never(0)   never(0)
+    clinc150   random50      static_knn  0.0000+/-0.000  0.8108+/-0.010   never(0)   never(0)   never(0)
+    clinc150   random50   static_linear  0.0000+/-0.000  0.9000+/-0.018   never(0)   never(0)   never(0)
+    clinc150   random50       substrate  0.8311+/-0.022  0.8025+/-0.007     21+/-3     40+/-2     73+/-9
+
+[plot] generating...
+  research\ocrr_sweep_plot_banking77_oracle.png
+  research\ocrr_sweep_plot_banking77_random50.png
+  research\ocrr_sweep_plot_banking77_random10.png
+  research\ocrr_sweep_plot_clinc150_oracle.png
+  research\ocrr_sweep_plot_clinc150_random50.png
+  research\ocrr_sweep_plot_clinc150_random10.png
+

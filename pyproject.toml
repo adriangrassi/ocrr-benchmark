@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ocrr-benchmark"
+version = "0.1.0"
+description = "OCRR — Online Correction Recovery Rate benchmark for classification systems under distribution shift"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+authors = [
+    { name = "Adrian Grassi" },
+]
+keywords = [
+    "machine-learning",
+    "continual-learning",
+    "online-learning",
+    "benchmark",
+    "distribution-shift",
+    "intent-classification",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "numpy>=1.24,<3",
+    "torch>=2.1,<3",
+    "sentence-transformers>=2.7,<4",
+    "scikit-learn>=1.3,<2",
+    "datasets>=2.14,<3",
+    "hnswlib>=0.7,<1",
+]
+
+[project.optional-dependencies]
+river = ["river>=0.21,<1"]
+lora = ["transformers>=4.40,<5", "peft>=0.10,<1"]
+plot = ["matplotlib>=3.7,<4"]
+
+[project.urls]
+Homepage = "https://github.com/adriangrassi/ocrr-benchmark"
+Issues = "https://github.com/adriangrassi/ocrr-benchmark/issues"
+
+[tool.setuptools.packages.find]
+include = ["ocrr_benchmark*"]
+exclude = ["tests*", "scripts*", "results*", "paper*"]

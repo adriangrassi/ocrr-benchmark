@@ -1,0 +1,145 @@
+==============================================================================
+  OCRR v1 (scope B) — Banking77, held-out-classes shift
+==============================================================================
+[load] Banking77 + cached bge-large embeddings...
+  train=(10003, 1024)  test=(3080, 1024)  classes=77
+
+[split] held-out (10): ['activate_my_card', 'age_limit', 'automatic_top_up', 'card_delivery_estimate', 'card_swallowed', 'change_pin', 'extra_charge_on_statement', 'lost_or_stolen_phone', 'top_up_by_card_charge', 'topping_up_by_card']
+        known    (67): kept
+
+[seed]    8808 train entries (67 known classes)
+[stream]  1195 train entries (10 held-out)
+[eval-novel]      400 test entries (held-out classes)
+[eval-original]   400 test entries (sampled, forgetting check)
+
+[build] systems...
+  substrate     ledger=8808  (3.2s)
+  static_knn    seed=8808  (0.0s)
+  static_linear out=67  (1.7s)
+  online_linear out=77  (0.7s)
+
+[run] substrate
+  [step    0  corr     0]  novel=0.0000  original=0.9700
+  [step   50  corr   30]  novel=0.4675  original=0.9700  (pred=0.0s  corr=0.0s)
+  [step  100  corr   49]  novel=0.6200  original=0.9700  (pred=0.0s  corr=0.0s)
+  [step  150  corr   69]  novel=0.7375  original=0.9700  (pred=0.1s  corr=0.0s)
+  [step  200  corr   83]  novel=0.7750  original=0.9700  (pred=0.1s  corr=0.0s)
+  [step  250  corr   95]  novel=0.7950  original=0.9700  (pred=0.1s  corr=0.0s)
+  [step  300  corr  102]  novel=0.8075  original=0.9700  (pred=0.1s  corr=0.1s)
+  [step  350  corr  110]  novel=0.8125  original=0.9700  (pred=0.2s  corr=0.1s)
+  [step  400  corr  114]  novel=0.8175  original=0.9700  (pred=0.2s  corr=0.1s)
+  [step  450  corr  121]  novel=0.8250  original=0.9700  (pred=0.2s  corr=0.1s)
+  [step  500  corr  125]  novel=0.8350  original=0.9675  (pred=0.2s  corr=0.1s)
+  [step  550  corr  134]  novel=0.8500  original=0.9675  (pred=0.3s  corr=0.1s)
+  [step  600  corr  138]  novel=0.8525  original=0.9675  (pred=0.3s  corr=0.1s)
+  [step  650  corr  149]  novel=0.8650  original=0.9675  (pred=0.3s  corr=0.1s)
+  [step  700  corr  152]  novel=0.8675  original=0.9675  (pred=0.3s  corr=0.1s)
+  [step  750  corr  163]  novel=0.8750  original=0.9675  (pred=0.4s  corr=0.1s)
+  [step  800  corr  167]  novel=0.8775  original=0.9675  (pred=0.4s  corr=0.1s)
+  [step  850  corr  172]  novel=0.8775  original=0.9675  (pred=0.4s  corr=0.1s)
+  [step  900  corr  178]  novel=0.8825  original=0.9675  (pred=0.4s  corr=0.1s)
+  [step  950  corr  191]  novel=0.8900  original=0.9675  (pred=0.5s  corr=0.1s)
+  [step 1000  corr  193]  novel=0.8900  original=0.9675  (pred=0.5s  corr=0.1s)
+  [step 1050  corr  195]  novel=0.8925  original=0.9675  (pred=0.5s  corr=0.1s)
+  [step 1100  corr  201]  novel=0.8950  original=0.9650  (pred=0.5s  corr=0.1s)
+  [step 1150  corr  204]  novel=0.8975  original=0.9650  (pred=0.5s  corr=0.1s)
+  [step 1195  corr  207]  novel=0.8975  original=0.9650  (pred=0.6s  corr=0.1s)
+  done in 10.0s
+
+[run] static_knn
+  [step    0  corr     0]  novel=0.0000  original=0.9700
+  [step   50  corr   50]  novel=0.0000  original=0.9700  (pred=0.0s  corr=0.0s)
+  [step  100  corr  100]  novel=0.0000  original=0.9700  (pred=0.0s  corr=0.0s)
+  [step  150  corr  150]  novel=0.0000  original=0.9700  (pred=0.1s  corr=0.0s)
+  [step  200  corr  200]  novel=0.0000  original=0.9700  (pred=0.1s  corr=0.0s)
+  [step  250  corr  250]  novel=0.0000  original=0.9700  (pred=0.1s  corr=0.0s)
+  [step  300  corr  300]  novel=0.0000  original=0.9700  (pred=0.1s  corr=0.0s)
+  [step  350  corr  350]  novel=0.0000  original=0.9700  (pred=0.1s  corr=0.0s)
+  [step  400  corr  400]  novel=0.0000  original=0.9700  (pred=0.1s  corr=0.0s)
+  [step  450  corr  450]  novel=0.0000  original=0.9700  (pred=0.2s  corr=0.0s)
+  [step  500  corr  500]  novel=0.0000  original=0.9700  (pred=0.2s  corr=0.0s)
+  [step  550  corr  550]  novel=0.0000  original=0.9700  (pred=0.2s  corr=0.0s)
+  [step  600  corr  600]  novel=0.0000  original=0.9700  (pred=0.2s  corr=0.0s)
+  [step  650  corr  650]  novel=0.0000  original=0.9700  (pred=0.2s  corr=0.0s)
+  [step  700  corr  700]  novel=0.0000  original=0.9700  (pred=0.3s  corr=0.0s)
+  [step  750  corr  750]  novel=0.0000  original=0.9700  (pred=0.3s  corr=0.0s)
+  [step  800  corr  800]  novel=0.0000  original=0.9700  (pred=0.3s  corr=0.0s)
+  [step  850  corr  850]  novel=0.0000  original=0.9700  (pred=0.3s  corr=0.0s)
+  [step  900  corr  900]  novel=0.0000  original=0.9700  (pred=0.3s  corr=0.0s)
+  [step  950  corr  950]  novel=0.0000  original=0.9700  (pred=0.3s  corr=0.0s)
+  [step 1000  corr 1000]  novel=0.0000  original=0.9700  (pred=0.4s  corr=0.0s)
+  [step 1050  corr 1050]  novel=0.0000  original=0.9700  (pred=0.4s  corr=0.0s)
+  [step 1100  corr 1100]  novel=0.0000  original=0.9700  (pred=0.4s  corr=0.0s)
+  [step 1150  corr 1150]  novel=0.0000  original=0.9700  (pred=0.4s  corr=0.0s)
+  [step 1195  corr 1195]  novel=0.0000  original=0.9700  (pred=0.4s  corr=0.0s)
+  done in 7.5s
+
+[run] static_linear
+  [step    0  corr     0]  novel=0.0000  original=0.9625
+  [step   50  corr   50]  novel=0.0000  original=0.9625  (pred=0.0s  corr=0.0s)
+  [step  100  corr  100]  novel=0.0000  original=0.9625  (pred=0.0s  corr=0.0s)
+  [step  150  corr  150]  novel=0.0000  original=0.9625  (pred=0.0s  corr=0.0s)
+  [step  200  corr  200]  novel=0.0000  original=0.9625  (pred=0.0s  corr=0.0s)
+  [step  250  corr  250]  novel=0.0000  original=0.9625  (pred=0.0s  corr=0.0s)
+  [step  300  corr  300]  novel=0.0000  original=0.9625  (pred=0.0s  corr=0.0s)
+  [step  350  corr  350]  novel=0.0000  original=0.9625  (pred=0.0s  corr=0.0s)
+  [step  400  corr  400]  novel=0.0000  original=0.9625  (pred=0.0s  corr=0.0s)
+  [step  450  corr  450]  novel=0.0000  original=0.9625  (pred=0.0s  corr=0.0s)
+  [step  500  corr  500]  novel=0.0000  original=0.9625  (pred=0.0s  corr=0.0s)
+  [step  550  corr  550]  novel=0.0000  original=0.9625  (pred=0.0s  corr=0.0s)
+  [step  600  corr  600]  novel=0.0000  original=0.9625  (pred=0.0s  corr=0.0s)
+  [step  650  corr  650]  novel=0.0000  original=0.9625  (pred=0.0s  corr=0.0s)
+  [step  700  corr  700]  novel=0.0000  original=0.9625  (pred=0.0s  corr=0.0s)
+  [step  750  corr  750]  novel=0.0000  original=0.9625  (pred=0.0s  corr=0.0s)
+  [step  800  corr  800]  novel=0.0000  original=0.9625  (pred=0.0s  corr=0.0s)
+  [step  850  corr  850]  novel=0.0000  original=0.9625  (pred=0.0s  corr=0.0s)
+  [step  900  corr  900]  novel=0.0000  original=0.9625  (pred=0.0s  corr=0.0s)
+  [step  950  corr  950]  novel=0.0000  original=0.9625  (pred=0.0s  corr=0.0s)
+  [step 1000  corr 1000]  novel=0.0000  original=0.9625  (pred=0.0s  corr=0.0s)
+  [step 1050  corr 1050]  novel=0.0000  original=0.9625  (pred=0.0s  corr=0.0s)
+  [step 1100  corr 1100]  novel=0.0000  original=0.9625  (pred=0.0s  corr=0.0s)
+  [step 1150  corr 1150]  novel=0.0000  original=0.9625  (pred=0.0s  corr=0.0s)
+  [step 1195  corr 1195]  novel=0.0000  original=0.9625  (pred=0.0s  corr=0.0s)
+  done in 0.3s
+
+[run] online_linear
+  [step    0  corr     0]  novel=0.0000  original=0.9625
+  [step   50  corr   50]  novel=0.0000  original=0.9625  (pred=0.0s  corr=0.0s)
+  [step  100  corr  100]  novel=0.0000  original=0.9625  (pred=0.0s  corr=0.0s)
+  [step  150  corr  150]  novel=0.0000  original=0.9625  (pred=0.0s  corr=0.0s)
+  [step  200  corr  200]  novel=0.0000  original=0.9625  (pred=0.0s  corr=0.0s)
+  [step  250  corr  250]  novel=0.0000  original=0.9600  (pred=0.0s  corr=0.0s)
+  [step  300  corr  300]  novel=0.0000  original=0.9575  (pred=0.0s  corr=0.1s)
+  [step  350  corr  350]  novel=0.0000  original=0.9575  (pred=0.0s  corr=0.1s)
+  [step  400  corr  400]  novel=0.0000  original=0.9600  (pred=0.0s  corr=0.1s)
+  [step  450  corr  450]  novel=0.0000  original=0.9600  (pred=0.0s  corr=0.1s)
+  [step  500  corr  500]  novel=0.0000  original=0.9575  (pred=0.0s  corr=0.1s)
+  [step  550  corr  549]  novel=0.0000  original=0.9575  (pred=0.0s  corr=0.1s)
+  [step  600  corr  599]  novel=0.0075  original=0.9550  (pred=0.0s  corr=0.1s)
+  [step  650  corr  649]  novel=0.0200  original=0.9575  (pred=0.0s  corr=0.1s)
+  [step  700  corr  696]  novel=0.0375  original=0.9525  (pred=0.0s  corr=0.1s)
+  [step  750  corr  743]  novel=0.0675  original=0.9525  (pred=0.0s  corr=0.1s)
+  [step  800  corr  788]  novel=0.0900  original=0.9525  (pred=0.0s  corr=0.1s)
+  [step  850  corr  835]  novel=0.1075  original=0.9500  (pred=0.0s  corr=0.1s)
+  [step  900  corr  877]  novel=0.1500  original=0.9500  (pred=0.0s  corr=0.1s)
+  [step  950  corr  919]  novel=0.2100  original=0.9500  (pred=0.0s  corr=0.1s)
+  [step 1000  corr  953]  novel=0.2625  original=0.9475  (pred=0.0s  corr=0.2s)
+  [step 1050  corr  980]  novel=0.2825  original=0.9475  (pred=0.0s  corr=0.2s)
+  [step 1100  corr 1012]  novel=0.3325  original=0.9450  (pred=0.0s  corr=0.2s)
+  [step 1150  corr 1040]  novel=0.3750  original=0.9450  (pred=0.0s  corr=0.2s)
+  [step 1195  corr 1073]  novel=0.4225  original=0.9450  (pred=0.0s  corr=0.2s)
+  done in 0.5s
+
+[csv] research\ocrr_v1_results.csv
+
+==============================================================================
+  OCRR v1 results — Banking77, held-out-classes shift
+==============================================================================
+          system  final_novel  final_orig     ->10%     ->30%     ->50%     ->70%     ->90%
+  -----------------------------------------------------------------------------------------
+       substrate       0.8975      0.9650        30        30        49        69     never
+      static_knn       0.0000      0.9700     never     never     never     never     never
+   static_linear       0.0000      0.9625     never     never     never     never     never
+   online_linear       0.4225      0.9450       835      1012     never     never     never
+[plot] research\ocrr_v1_plot.png
+

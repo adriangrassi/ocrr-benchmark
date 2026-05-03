@@ -1,0 +1,267 @@
+==============================================================================
+  OCRR LoRA-DeBERTa baseline (banking77 / oracle)
+  seeds=[0, 1, 2]  device=cuda
+==============================================================================
+
+[seed=0]
+  held-out classes: ['activate_my_card', 'age_limit', 'automatic_top_up', 'card_delivery_estimate', 'card_swallowed', 'change_pin', 'extra_charge_on_statement', 'lost_or_stolen_phone', 'top_up_by_card_charge', 'topping_up_by_card']
+  [build] DeBERTa-v3-large + LoRA r=8 (seed_epochs=2)
+Skipping import of cpp extensions due to incompatible torch version. Please upgrade to torch >= 2.11.0 (found 2.10.0+cu126).
+W0502 21:05:57.297000 91060 site-packages\torch\distributed\elastic\multiprocessing\redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/390 [00:00<?, ?it/s]Loading weights: 100%|##########| 390/390 [00:00<00:00, 28855.82it/s]
+[1mDebertaV2Model LOAD REPORT[0m from: microsoft/deberta-v3-large
+Key                                     | Status     |  | 
+----------------------------------------+------------+--+-
+lm_predictions.lm_head.LayerNorm.bias   | UNEXPECTED |  | 
+mask_predictions.dense.weight           | UNEXPECTED |  | 
+mask_predictions.dense.bias             | UNEXPECTED |  | 
+mask_predictions.classifier.weight      | UNEXPECTED |  | 
+mask_predictions.LayerNorm.bias         | UNEXPECTED |  | 
+lm_predictions.lm_head.dense.bias       | UNEXPECTED |  | 
+lm_predictions.lm_head.dense.weight     | UNEXPECTED |  | 
+mask_predictions.LayerNorm.weight       | UNEXPECTED |  | 
+mask_predictions.classifier.bias        | UNEXPECTED |  | 
+lm_predictions.lm_head.LayerNorm.weight | UNEXPECTED |  | 
+lm_predictions.lm_head.bias             | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+    init done in 124.1s
+
+  [run] lora_deberta
+    [step    0  corr     0]  novel=0.0000  orig=0.6775  (36.1s)
+    [step   50  corr   50]  novel=0.0000  orig=0.5900  (elapsed 79s)
+    [step  100  corr   96]  novel=0.2100  orig=0.3250  (elapsed 123s)
+    [step  150  corr  132]  novel=0.3550  orig=0.1750  (elapsed 165s)
+    [step  200  corr  159]  novel=0.3825  orig=0.1400  (elapsed 205s)
+    [step  250  corr  186]  novel=0.4150  orig=0.1075  (elapsed 245s)
+    [step  300  corr  214]  novel=0.5450  orig=0.0925  (elapsed 285s)
+    [step  350  corr  237]  novel=0.4000  orig=0.0875  (elapsed 325s)
+    [step  400  corr  257]  novel=0.5100  orig=0.0950  (elapsed 364s)
+    [step  450  corr  279]  novel=0.5150  orig=0.0900  (elapsed 404s)
+    [step  500  corr  296]  novel=0.6725  orig=0.0950  (elapsed 443s)
+    [step  550  corr  310]  novel=0.5975  orig=0.0900  (elapsed 482s)
+    [step  600  corr  328]  novel=0.6075  orig=0.0925  (elapsed 522s)
+    [step  650  corr  348]  novel=0.5950  orig=0.0825  (elapsed 561s)
+    [step  700  corr  366]  novel=0.6275  orig=0.0875  (elapsed 600s)
+    [step  750  corr  380]  novel=0.7150  orig=0.0800  (elapsed 640s)
+    [step  800  corr  392]  novel=0.7075  orig=0.0925  (elapsed 678s)
+    [step  850  corr  405]  novel=0.7800  orig=0.0975  (elapsed 717s)
+    [step  900  corr  415]  novel=0.7750  orig=0.1000  (elapsed 756s)
+    [step  950  corr  424]  novel=0.7250  orig=0.0975  (elapsed 794s)
+    [step 1000  corr  442]  novel=0.6250  orig=0.0925  (elapsed 834s)
+    [step 1050  corr  454]  novel=0.7425  orig=0.0975  (elapsed 873s)
+    [step 1100  corr  467]  novel=0.7650  orig=0.0925  (elapsed 911s)
+    [step 1150  corr  474]  novel=0.8200  orig=0.0950  (elapsed 949s)
+    [step 1195  corr  482]  novel=0.6500  orig=0.0975  (elapsed 987s)
+
+  [run] substrate (reference, same shift slice)
+    [step    0  corr     0]  novel=0.0000  orig=0.9475
+    [step   50  corr   32]  novel=0.4825  orig=0.9475
+    [step  100  corr   51]  novel=0.6125  orig=0.9475
+    [step  150  corr   67]  novel=0.6825  orig=0.9475
+    [step  200  corr   84]  novel=0.7300  orig=0.9475
+    [step  250  corr   97]  novel=0.8025  orig=0.9475
+    [step  300  corr  105]  novel=0.8200  orig=0.9475
+    [step  350  corr  113]  novel=0.8325  orig=0.9475
+    [step  400  corr  122]  novel=0.8400  orig=0.9475
+    [step  450  corr  129]  novel=0.8550  orig=0.9475
+    [step  500  corr  136]  novel=0.8575  orig=0.9475
+    [step  550  corr  140]  novel=0.8625  orig=0.9475
+    [step  600  corr  145]  novel=0.8675  orig=0.9475
+    [step  650  corr  154]  novel=0.8725  orig=0.9475
+    [step  700  corr  159]  novel=0.8750  orig=0.9475
+    [step  750  corr  164]  novel=0.8775  orig=0.9475
+    [step  800  corr  168]  novel=0.8800  orig=0.9475
+    [step  850  corr  169]  novel=0.8800  orig=0.9475
+    [step  900  corr  176]  novel=0.8875  orig=0.9475
+    [step  950  corr  182]  novel=0.8950  orig=0.9475
+    [step 1000  corr  185]  novel=0.8950  orig=0.9475
+    [step 1050  corr  194]  novel=0.9025  orig=0.9475
+    [step 1100  corr  198]  novel=0.9025  orig=0.9475
+    [step 1150  corr  203]  novel=0.9050  orig=0.9475
+    [step 1195  corr  208]  novel=0.9050  orig=0.9475
+  seed took 1126s (elapsed 1126s)
+
+[seed=1]
+  held-out classes: ['age_limit', 'card_about_to_expire', 'card_payment_wrong_exchange_rate', 'contactless_not_working', 'exchange_charge', 'extra_charge_on_statement', 'request_refund', 'top_up_limits', 'transfer_timing', 'verify_top_up']
+  [build] DeBERTa-v3-large + LoRA r=8 (seed_epochs=2)
+Loading weights:   0%|          | 0/390 [00:00<?, ?it/s]Loading weights: 100%|##########| 390/390 [00:00<00:00, 29986.23it/s]
+[1mDebertaV2Model LOAD REPORT[0m from: microsoft/deberta-v3-large
+Key                                     | Status     |  | 
+----------------------------------------+------------+--+-
+lm_predictions.lm_head.LayerNorm.bias   | UNEXPECTED |  | 
+mask_predictions.dense.weight           | UNEXPECTED |  | 
+mask_predictions.dense.bias             | UNEXPECTED |  | 
+mask_predictions.classifier.weight      | UNEXPECTED |  | 
+mask_predictions.LayerNorm.bias         | UNEXPECTED |  | 
+lm_predictions.lm_head.dense.bias       | UNEXPECTED |  | 
+lm_predictions.lm_head.dense.weight     | UNEXPECTED |  | 
+mask_predictions.LayerNorm.weight       | UNEXPECTED |  | 
+mask_predictions.classifier.bias        | UNEXPECTED |  | 
+lm_predictions.lm_head.LayerNorm.weight | UNEXPECTED |  | 
+lm_predictions.lm_head.bias             | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+    init done in 111.6s
+
+  [run] lora_deberta
+    [step    0  corr     0]  novel=0.0000  orig=0.6850  (35.1s)
+    [step   50  corr   50]  novel=0.0000  orig=0.6425  (elapsed 78s)
+    [step  100  corr  100]  novel=0.1175  orig=0.5100  (elapsed 120s)
+    [step  150  corr  134]  novel=0.5350  orig=0.4050  (elapsed 161s)
+    [step  200  corr  154]  novel=0.6200  orig=0.3125  (elapsed 201s)
+    [step  250  corr  173]  novel=0.6800  orig=0.2775  (elapsed 241s)
+    [step  300  corr  191]  novel=0.6350  orig=0.2450  (elapsed 280s)
+    [step  350  corr  204]  novel=0.5700  orig=0.2025  (elapsed 320s)
+    [step  400  corr  217]  novel=0.6825  orig=0.2025  (elapsed 359s)
+    [step  450  corr  232]  novel=0.7400  orig=0.1750  (elapsed 398s)
+    [step  500  corr  239]  novel=0.7025  orig=0.1575  (elapsed 436s)
+    [step  550  corr  250]  novel=0.8500  orig=0.1250  (elapsed 475s)
+    [step  600  corr  260]  novel=0.8750  orig=0.1075  (elapsed 513s)
+    [step  650  corr  264]  novel=0.8825  orig=0.1075  (elapsed 552s)
+    [step  700  corr  273]  novel=0.8700  orig=0.1200  (elapsed 590s)
+    [step  750  corr  285]  novel=0.8475  orig=0.1175  (elapsed 629s)
+    [step  800  corr  287]  novel=0.8850  orig=0.1100  (elapsed 667s)
+    [step  850  corr  291]  novel=0.9000  orig=0.1075  (elapsed 705s)
+    [step  900  corr  299]  novel=0.9100  orig=0.1050  (elapsed 744s)
+    [step  950  corr  308]  novel=0.9200  orig=0.1250  (elapsed 783s)
+    [step 1000  corr  315]  novel=0.8825  orig=0.1100  (elapsed 821s)
+    [step 1050  corr  319]  novel=0.8850  orig=0.1150  (elapsed 859s)
+    [step 1100  corr  324]  novel=0.8100  orig=0.1000  (elapsed 898s)
+    [step 1150  corr  330]  novel=0.8025  orig=0.1125  (elapsed 936s)
+    [step 1200  corr  336]  novel=0.8750  orig=0.1200  (elapsed 975s)
+    [step 1248  corr  338]  novel=0.8425  orig=0.1175  (elapsed 1013s)
+
+  [run] substrate (reference, same shift slice)
+    [step    0  corr     0]  novel=0.0000  orig=0.9425
+    [step   50  corr   32]  novel=0.4900  orig=0.9425
+    [step  100  corr   52]  novel=0.7325  orig=0.9425
+    [step  150  corr   63]  novel=0.7825  orig=0.9425
+    [step  200  corr   74]  novel=0.7975  orig=0.9425
+    [step  250  corr   89]  novel=0.8225  orig=0.9425
+    [step  300  corr   99]  novel=0.8275  orig=0.9425
+    [step  350  corr  114]  novel=0.8650  orig=0.9425
+    [step  400  corr  119]  novel=0.8700  orig=0.9425
+    [step  450  corr  129]  novel=0.8725  orig=0.9425
+    [step  500  corr  138]  novel=0.8750  orig=0.9425
+    [step  550  corr  143]  novel=0.8900  orig=0.9425
+    [step  600  corr  150]  novel=0.8975  orig=0.9425
+    [step  650  corr  154]  novel=0.9000  orig=0.9425
+    [step  700  corr  159]  novel=0.9000  orig=0.9425
+    [step  750  corr  165]  novel=0.9100  orig=0.9425
+    [step  800  corr  169]  novel=0.9100  orig=0.9425
+    [step  850  corr  172]  novel=0.9125  orig=0.9425
+    [step  900  corr  177]  novel=0.9175  orig=0.9425
+    [step  950  corr  181]  novel=0.9250  orig=0.9425
+    [step 1000  corr  189]  novel=0.9350  orig=0.9425
+    [step 1050  corr  191]  novel=0.9350  orig=0.9425
+    [step 1100  corr  197]  novel=0.9375  orig=0.9425
+    [step 1150  corr  204]  novel=0.9375  orig=0.9425
+    [step 1200  corr  208]  novel=0.9375  orig=0.9425
+    [step 1248  corr  211]  novel=0.9375  orig=0.9425
+  seed took 1142s (elapsed 2268s)
+
+[seed=2]
+  held-out classes: ['balance_not_updated_after_bank_transfer', 'balance_not_updated_after_cheque_or_cash_deposit', 'card_payment_wrong_exchange_rate', 'cash_withdrawal_not_recognised', 'country_support', 'direct_debit_payment_not_recognised', 'exchange_rate', 'pending_card_payment', 'top_up_by_bank_transfer_charge', 'top_up_failed']
+  [build] DeBERTa-v3-large + LoRA r=8 (seed_epochs=2)
+Loading weights:   0%|          | 0/390 [00:00<?, ?it/s]Loading weights: 100%|##########| 390/390 [00:00<00:00, 31200.48it/s]
+[1mDebertaV2Model LOAD REPORT[0m from: microsoft/deberta-v3-large
+Key                                     | Status     |  | 
+----------------------------------------+------------+--+-
+lm_predictions.lm_head.LayerNorm.bias   | UNEXPECTED |  | 
+mask_predictions.dense.weight           | UNEXPECTED |  | 
+mask_predictions.dense.bias             | UNEXPECTED |  | 
+mask_predictions.classifier.weight      | UNEXPECTED |  | 
+mask_predictions.LayerNorm.bias         | UNEXPECTED |  | 
+lm_predictions.lm_head.dense.bias       | UNEXPECTED |  | 
+lm_predictions.lm_head.dense.weight     | UNEXPECTED |  | 
+mask_predictions.LayerNorm.weight       | UNEXPECTED |  | 
+mask_predictions.classifier.bias        | UNEXPECTED |  | 
+lm_predictions.lm_head.LayerNorm.weight | UNEXPECTED |  | 
+lm_predictions.lm_head.bias             | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+    init done in 107.8s
+
+  [run] lora_deberta
+    [step    0  corr     0]  novel=0.0000  orig=0.7575  (35.3s)
+    [step   50  corr   50]  novel=0.0100  orig=0.6675  (elapsed 78s)
+    [step  100  corr   95]  novel=0.2950  orig=0.4125  (elapsed 120s)
+    [step  150  corr  127]  novel=0.3075  orig=0.3050  (elapsed 160s)
+    [step  200  corr  161]  novel=0.3275  orig=0.2550  (elapsed 202s)
+    [step  250  corr  186]  novel=0.4425  orig=0.1775  (elapsed 242s)
+    [step  300  corr  210]  novel=0.4925  orig=0.1725  (elapsed 281s)
+    [step  350  corr  227]  novel=0.6475  orig=0.1650  (elapsed 321s)
+    [step  400  corr  244]  novel=0.5475  orig=0.1475  (elapsed 360s)
+    [step  450  corr  260]  novel=0.6475  orig=0.1450  (elapsed 400s)
+    [step  500  corr  272]  novel=0.6700  orig=0.1500  (elapsed 439s)
+    [step  550  corr  290]  novel=0.6550  orig=0.1475  (elapsed 478s)
+    [step  600  corr  308]  novel=0.7225  orig=0.1575  (elapsed 518s)
+    [step  650  corr  322]  novel=0.6925  orig=0.1500  (elapsed 557s)
+    [step  700  corr  336]  novel=0.7400  orig=0.1450  (elapsed 598s)
+    [step  750  corr  352]  novel=0.6775  orig=0.1325  (elapsed 637s)
+    [step  800  corr  367]  novel=0.7475  orig=0.1425  (elapsed 677s)
+    [step  850  corr  377]  novel=0.7750  orig=0.1225  (elapsed 715s)
+    [step  900  corr  392]  novel=0.7325  orig=0.0875  (elapsed 755s)
+    [step  950  corr  407]  novel=0.7100  orig=0.1025  (elapsed 795s)
+    [step 1000  corr  425]  novel=0.7725  orig=0.1025  (elapsed 834s)
+    [step 1050  corr  438]  novel=0.7875  orig=0.1050  (elapsed 873s)
+    [step 1100  corr  453]  novel=0.7875  orig=0.1100  (elapsed 913s)
+    [step 1150  corr  462]  novel=0.8000  orig=0.1125  (elapsed 951s)
+    [step 1200  corr  471]  novel=0.8325  orig=0.1050  (elapsed 990s)
+    [step 1250  corr  480]  novel=0.8325  orig=0.1050  (elapsed 1030s)
+    [step 1300  corr  489]  novel=0.7900  orig=0.1025  (elapsed 1068s)
+    [step 1350  corr  494]  novel=0.8200  orig=0.1075  (elapsed 1106s)
+    [step 1400  corr  510]  novel=0.7225  orig=0.1075  (elapsed 1145s)
+    [step 1450  corr  522]  novel=0.8025  orig=0.1000  (elapsed 1183s)
+    [step 1500  corr  526]  novel=0.7375  orig=0.1000  (elapsed 1222s)
+    [step 1517  corr  529]  novel=0.8200  orig=0.1075  (elapsed 1259s)
+
+  [run] substrate (reference, same shift slice)
+    [step    0  corr     0]  novel=0.0000  orig=0.9625
+    [step   50  corr   41]  novel=0.3175  orig=0.9625
+    [step  100  corr   66]  novel=0.4575  orig=0.9625
+    [step  150  corr   95]  novel=0.5725  orig=0.9625
+    [step  200  corr  118]  novel=0.6125  orig=0.9625
+    [step  250  corr  138]  novel=0.6650  orig=0.9625
+    [step  300  corr  157]  novel=0.6875  orig=0.9625
+    [step  350  corr  173]  novel=0.7300  orig=0.9625
+    [step  400  corr  181]  novel=0.7475  orig=0.9625
+    [step  450  corr  196]  novel=0.7575  orig=0.9625
+    [step  500  corr  207]  novel=0.7625  orig=0.9625
+    [step  550  corr  219]  novel=0.7725  orig=0.9625
+    [step  600  corr  227]  novel=0.7750  orig=0.9625
+    [step  650  corr  243]  novel=0.7875  orig=0.9625
+    [step  700  corr  252]  novel=0.8050  orig=0.9600
+    [step  750  corr  261]  novel=0.8125  orig=0.9600
+    [step  800  corr  271]  novel=0.8175  orig=0.9600
+    [step  850  corr  287]  novel=0.8325  orig=0.9600
+    [step  900  corr  297]  novel=0.8375  orig=0.9600
+    [step  950  corr  302]  novel=0.8400  orig=0.9600
+    [step 1000  corr  308]  novel=0.8425  orig=0.9600
+    [step 1050  corr  315]  novel=0.8525  orig=0.9600
+    [step 1100  corr  323]  novel=0.8550  orig=0.9600
+    [step 1150  corr  329]  novel=0.8600  orig=0.9600
+    [step 1200  corr  332]  novel=0.8600  orig=0.9600
+    [step 1250  corr  342]  novel=0.8625  orig=0.9600
+    [step 1300  corr  351]  novel=0.8700  orig=0.9600
+    [step 1350  corr  354]  novel=0.8700  orig=0.9600
+    [step 1400  corr  366]  novel=0.8700  orig=0.9600
+    [step 1450  corr  373]  novel=0.8725  orig=0.9600
+    [step 1500  corr  376]  novel=0.8725  orig=0.9600
+    [step 1517  corr  377]  novel=0.8725  orig=0.9600
+  seed took 1384s (elapsed 3651s)
+
+[done] 3651s
+[csv] research\ocrr_lora_deberta_results.csv
+
+======================================================================================
+  Final accuracies (mean ± std over seeds)
+======================================================================================
+    lora_deberta  novel=0.7708±0.086  orig=0.1075±0.008  n_seeds=3
+       substrate  novel=0.9050±0.027  orig=0.9500±0.007  n_seeds=3
+[plot] research\ocrr_lora_deberta_curves.png
