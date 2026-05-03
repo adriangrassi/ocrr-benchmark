@@ -517,6 +517,12 @@ and `research/ocrr_full_sweep_summary.csv` (aggregated).
 | LangChain / LlamaIndex / Haystack | Frameworks, not algorithms — same vector retrieval as `static_knn`. |
 | Pinecone / Weaviate / Qdrant | Storage backends, not algorithms. |
 | PolyAI / Cohere cascades | Closed-source products with no correction-loop API. |
-| LoRA on DeBERTa-v3-large | Strong baseline but separate engineering effort; queued as Phase 10.1e. |
 | MANN / Memory Networks | Old, hard to find working modern implementations. |
 | RLHF / DPO | Preference-learning, not classification. |
+
+LoRA on DeBERTa-v3-large was originally queued as a deferred baseline
+but has since been included as `lora_deberta` (Section 4.5, results in
+Section 5.5, hyperparameters in Appendix B). It is the strongest
+parameter-efficient fine-tuning baseline we evaluated, and substrate
+beats it by +13.4 pp on novel and +84.3 pp on original-distribution
+accuracy.
