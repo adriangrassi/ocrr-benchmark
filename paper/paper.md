@@ -2,6 +2,7 @@
 
 **Adrian Grassi** \
 Independent Researcher \
+[adriangrassi@gmail.com](mailto:adriangrassi@gmail.com) \
 ORCID: [0009-0007-4890-5393](https://orcid.org/0009-0007-4890-5393) \
 Code: [github.com/adriangrassi/ocrr-benchmark](https://github.com/adriangrassi/ocrr-benchmark)
 
