@@ -1,11 +1,9 @@
 # OCRR: Measuring Online Correction Recovery in Classification Systems
 
-**Author note (this draft):** First-person plural for now; convert to formal
-voice + author/affiliation for submission. Markdown source so the prose stays
-diff-friendly during revision; convert to NeurIPS LaTeX (`neurips_2026.sty`)
-as the last step before submission.
-
-**Target venue:** NeurIPS Datasets and Benchmarks Track 2026
+**Adrian Grassi** \
+Independent Researcher \
+ORCID: [0009-0007-4890-5393](https://orcid.org/0009-0007-4890-5393) \
+Code: [github.com/adriangrassi/ocrr-benchmark](https://github.com/adriangrassi/ocrr-benchmark)
 
 ---
 
