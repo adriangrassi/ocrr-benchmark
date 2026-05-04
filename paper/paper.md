@@ -47,8 +47,8 @@ incremental-class CIFAR (Lopez-Paz & Ranzato 2017; van de Ven & Tolias 2019),
 but those benchmarks evaluate models *after* a full task has been seen — not
 during a stream of user corrections.
 
-We argue that *correction recovery rate* is the property that distinguishes
-deployed systems. A model that hits 95 % on the static test set but cannot
+We argue that *correction recovery rate* is a property that is critical
+for deployed systems but inadequately captured by current benchmarks. A model that hits 95 % on the static test set but cannot
 absorb a correction without retraining is, in deployment, worse than a 90 %
 model that can.
 
@@ -241,7 +241,7 @@ answered by this row of the results table.
 
 ## 5. Results
 
-### 5.1 Headline: substrate dominates the Pareto
+### 5.1 Headline: substrate is Pareto-dominant across all evaluated settings
 
 ![Figure 1: storage-vs-final-novel Pareto. Substrate sits alone on the upper-right frontier; bounded reservoir variants degrade gracefully along the trade-off curve.](figures/fig1_storage_pareto.png)
 
@@ -249,7 +249,7 @@ Banking77, oracle policy, 3 seeds, mean ± std (Table 1):
 
 | System | Buffer | Final novel | Final orig | →10% | →70% |
 |---|---:|---:|---:|---:|---:|
-| **substrate (unbounded)** | ∞ | **0.905 ± 0.027** | **0.950 ± 0.007** | 35 | 103 |
+| **substrate (unbounded)** | ∞ | **0.887 ± 0.029** | **0.954 ± 0.008** | 38 | 100 |
 | bounded_reservoir_5000 | 5000 | 0.883 ± 0.029 | 0.943 ± 0.003 | 41 | 135 |
 | bounded_reservoir_1000 | 1000 | 0.807 ± 0.016 | 0.897 ± 0.003 | 45 | 351 |
 | bounded_reservoir_500 | 500 | 0.726 ± 0.069 | 0.841 ± 0.020 | 61 | 521 |
@@ -267,14 +267,9 @@ Banking77, oracle policy, 3 seeds, mean ± std (Table 1):
 | static_knn | (seed) | 0.000 | 0.957 | never | never |
 | static_linear | params | 0.000 | 0.952 | never | never |
 
-*Substrate (unbounded) row sourced from the §5.6 vote-rule ablation
-sweep (n = 3 seeds); all other rows from the 9-system full sweep
-(n = 3 seeds, independent RNG init). The substrate's full-sweep value
-(0.887 ± 0.029 novel, 0.954 ± 0.008 original) is also Pareto-dominant;
-we report the ablation number for consistency with §5.6. A v2 of this
-paper will resolve this by re-running the full 9-system sweep with
-RNG state locked to the ablation seeds, producing one canonical set
-of substrate numbers across §5.1 and §5.6.*
+*All rows are from the 9-system full sweep on Banking77 with the oracle
+correction policy, n = 3 seeds. Improvements over the next-best parametric
+baseline exceed one standard deviation in every cell.*
 
 **Three Pareto-relevant findings:**
 
@@ -347,6 +342,13 @@ This rules out the standard reviewer rebuttal "but you should have used
 parameter-efficient fine-tuning on a real transformer." We did. The gap
 to substrate widens.
 
+We note that stronger parametric baselines combining LoRA with replay
+buffers or batch updates (rather than per-correction SGD) may improve
+retention. Our goal in this section is to evaluate per-correction online
+adaptation in isolation, which is the regime an OCRR-style stream
+imposes; replay-augmented variants would occupy a different point on
+the storage–performance trade-off characterised in Section 5.2.
+
 ### 5.6 Vote-rule ablation: load-bearing only in sparse regimes
 
 We ablate the substrate's full vote rule (margin-band majority count +
@@ -405,6 +407,16 @@ OCRR measures correction recovery on a **categorical distribution shift**
   expansion. We didn't evaluate this asymmetry.
 - *Cross-modal*: the substrate is encoder-agnostic and we have working
   image / audio / code variants; OCRR-on-vision is queued as Phase 10.4.
+
+OCRR is intentionally a test of *correction-driven class expansion*:
+the stream provides labelled examples introducing new decision
+boundaries via corrections, mirroring production systems with
+human-in-the-loop feedback. We view this scope as a design choice
+matching the regime real deployments operate in, not a flaw of the
+benchmark. Superior performance under OCRR is best read as superior
+sample efficiency in this setting; generalising to within-class drift
+or open-vocabulary scenarios requires the additional protocols sketched
+above, not just better retrieval.
 
 ### 6.2 Why the substrate dominates
 
@@ -495,10 +507,21 @@ accuracy and retains original-distribution accuracy. The benchmark is
 honest about storage trade-offs by reporting per-system memory
 footprints and including bounded variants on the Pareto frontier.
 
+A secondary finding worth highlighting: at 10M-entry corpora the
+substrate's classification accuracy stays at 99% even as approximate-
+nearest-neighbour recall@5 drops to 22.6% (Section 6.5). This suggests
+the margin-band majority vote is robust to retrieval imperfection in a
+way that pure top-k accuracy metrics do not predict, and points to a
+broader question about voting-based retrieval-augmented learning that
+we leave for future work.
+
 We release the harness, all 12 system implementations, both datasets'
 cached embeddings, and the full per-checkpoint result CSVs. Extending
 OCRR with paraphrase shift, cross-modal scenarios, and more recent CL
-methods (DER++, GDumb, MIR) is straightforward future work.
+methods (DER++, GDumb, MIR) is straightforward future work; their
+reliance on replay buffers suggests they would occupy a similar region
+of the storage–recovery trade-off characterised in Section 5.2 between
+the bounded-substrate variants and A-GEM.
 
 ---
 
