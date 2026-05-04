@@ -269,6 +269,15 @@ Banking77, oracle policy, 3 seeds, mean ± std (Table 1):
 | static_knn | (seed) | 0.000 | 0.957 | never | never |
 | static_linear | params | 0.000 | 0.952 | never | never |
 
+*Substrate (unbounded) row sourced from the §5.6 vote-rule ablation
+sweep (n = 3 seeds); all other rows from the 9-system full sweep
+(n = 3 seeds, independent RNG init). The substrate's full-sweep value
+(0.887 ± 0.029 novel, 0.954 ± 0.008 original) is also Pareto-dominant;
+we report the ablation number for consistency with §5.6. A v2 of this
+paper will resolve this by re-running the full 9-system sweep with
+RNG state locked to the ablation seeds, producing one canonical set
+of substrate numbers across §5.1 and §5.6.*
+
 **Three Pareto-relevant findings:**
 
 (1) The substrate is the only system with novel-class accuracy > 80 % AND
