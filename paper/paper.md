@@ -17,7 +17,9 @@ speed under correction streams. We introduce **OCRR (Online Correction Recovery
 Rate)**: a benchmark that streams a corpus through a classification system,
 applies oracle or stochastic corrections to wrong predictions, and reports
 two curves: novel-class accuracy and original-distribution accuracy versus
-correction count. We evaluate thirteen systems including standard online-learning
+correction count. We evaluate the substrate alongside nine baseline algorithms
+from five families plus seven bounded-storage variants of the substrate for the
+Pareto sweep, including standard online-learning
 baselines (`river`), continual-learning methods (EWC, A-GEM, LwF),
 retrieval/parametric hybrids (kNN-LM), parameter-efficient fine-tuning of
 a 1.5 B-parameter encoder (LoRA on DeBERTa-v3-large), and a hash-chained
@@ -59,12 +61,18 @@ This paper contributes:
    based protocol, two evaluation axes (novel and original), three correction
    policies (oracle, random-50 %, random-10 %), and three storage budgets
    (unbounded, bounded reservoir, bounded FIFO).
-2. **Twelve baseline systems** spanning four families: strawmen (static-kNN,
-   static-linear, online-linear), continual-learning methods (EWC, A-GEM,
-   LwF), online-ML libraries (`river`), retrieval/parametric hybrids
-   (kNN-LM), and a hash-chained substrate of our own design.
-3. **162 system runs** across 2 datasets × 3 policies × 3 seeds × 9 systems,
-   plus a separate 36-run storage-vs-recovery Pareto sweep.
+2. **Nine baseline algorithms** spanning five families: three strawmen
+   (static-kNN, static-linear, online-linear), three continual-learning
+   methods (EWC, A-GEM, LwF), one online-ML library (`river`), one
+   retrieval/parametric hybrid (kNN-LM), and one parameter-efficient
+   fine-tune (LoRA on DeBERTa-v3-large). We benchmark all nine against
+   our substrate, a hash-chained append-only ledger with margin-band
+   majority voting.
+3. **162 system runs** in the main full sweep across 2 datasets ×
+   3 policies × 3 seeds × 9 systems, plus a separate 36-run
+   storage-vs-recovery Pareto sweep over seven bounded-substrate
+   variants (4 reservoir + 3 FIFO budget points), plus a 3-seed
+   LoRA-DeBERTa cell.
 4. **A clean characterisation** of where each method sits on the
    storage-vs-forgetting Pareto, exposing structural trade-offs that static
    benchmarks hide.
@@ -555,8 +563,10 @@ fairness-monitoring layers regardless of which classifier they use.
 
 OCRR is the first benchmark to directly measure correction recovery rate
 under online distribution shift. Across 162 system runs spanning two
-datasets, three correction policies, and thirteen systems, the
-substrate — a hash-chained append-only ledger with margin-band majority
+datasets, three correction policies, and nine baseline algorithms plus
+the substrate (with seven bounded-storage variants for the Pareto sweep
+and one LoRA-DeBERTa cell), the substrate — a hash-chained append-only
+ledger with margin-band majority
 voting — is the only system that simultaneously recovers novel-class
 accuracy and retains original-distribution accuracy. The benchmark is
 honest about storage trade-offs by reporting per-system memory
@@ -570,7 +580,8 @@ way that pure top-k accuracy metrics do not predict, and points to a
 broader question about voting-based retrieval-augmented learning that
 we leave for future work.
 
-We release the harness, all 13 system implementations, both datasets'
+We release the harness, all 17 system implementations (substrate plus
+nine baselines plus seven bounded-storage variants), both datasets'
 cached embeddings, and the full per-checkpoint result CSVs. Extending
 OCRR with paraphrase shift, cross-modal scenarios, and more recent CL
 methods (DER++, GDumb, MIR) is straightforward future work; their
