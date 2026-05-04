@@ -182,13 +182,26 @@ class ImmutableLedger:
         return list(self._entries)
 
     def nearest(
-        self, query: np.ndarray, k: int = 5
+        self, query: np.ndarray, k: int = 5, *, force_brute: bool = False,
     ) -> list[tuple[MemoryEntry, float]]:
-        """Return up to k entries by cosine similarity, descending."""
+        """Return up to k entries by cosine similarity, descending.
+
+        ``force_brute=True`` bypasses the HNSW backend even when available
+        and forces a brute-force scan over every entry. Useful when the
+        caller needs a 100%-recall guarantee at the cost of latency, e.g.
+        for the substrate's "never forget" claim at scale where HNSW
+        approximate-recall could otherwise miss a rare-class entry.
+        """
         if not self._entries:
             return []
 
-        if self._hnsw is not None and self._hnsw.is_available and len(self._hnsw) > 0:
+        use_hnsw = (
+            not force_brute
+            and self._hnsw is not None
+            and self._hnsw.is_available
+            and len(self._hnsw) > 0
+        )
+        if use_hnsw:
             ids, sims = self._hnsw.knn(query.astype(np.float32, copy=False), k=k)
             return [(self._entries[int(i)], float(s)) for i, s in zip(ids, sims)]
 
@@ -202,6 +215,50 @@ class ImmutableLedger:
         scores = m_unit @ q_norm
         top_idx = np.argsort(-scores)[: min(k, n)]
         return [(self._entries[int(i)], float(scores[int(i)])) for i in top_idx]
+
+    def verify_hnsw_recall(
+        self, queries: np.ndarray, k: int = 5,
+    ) -> dict[str, float]:
+        """Compare HNSW top-k against ground-truth brute-force top-k.
+
+        Runs both backends on the same queries and reports recall@k:
+        the fraction of brute-force-correct neighbors that HNSW also
+        returned. recall@k = 1.0 means HNSW found every true top-k
+        neighbor on every query in the sample. recall@k < 1.0 means
+        HNSW missed entries the ledger physically stores, which is the
+        actual mechanism by which the substrate could "forget" at scale.
+
+        Returns a dict with ``recall_at_k``, ``num_queries``, ``k``,
+        and ``backend`` ("hnsw" or "brute_only" if HNSW unavailable).
+        """
+        if not self._entries:
+            return {"recall_at_k": 1.0, "num_queries": 0, "k": k, "backend": "empty"}
+        if self._hnsw is None or not self._hnsw.is_available or len(self._hnsw) == 0:
+            return {
+                "recall_at_k": 1.0,
+                "num_queries": int(queries.shape[0] if queries.ndim > 1 else 1),
+                "k": k,
+                "backend": "brute_only",
+            }
+        if queries.ndim == 1:
+            queries = queries[None, :]
+
+        total_recovered = 0
+        total_target = 0
+        for q in queries:
+            hnsw_results = self.nearest(q, k=k, force_brute=False)
+            brute_results = self.nearest(q, k=k, force_brute=True)
+            hnsw_ids = {e.id for e, _ in hnsw_results}
+            brute_ids = {e.id for e, _ in brute_results}
+            total_recovered += len(hnsw_ids & brute_ids)
+            total_target += len(brute_ids)
+        recall = (total_recovered / total_target) if total_target > 0 else 1.0
+        return {
+            "recall_at_k": float(recall),
+            "num_queries": int(queries.shape[0]),
+            "k": k,
+            "backend": "hnsw",
+        }
 
     def nearest_batch(
         self, queries: np.ndarray, k: int = 5

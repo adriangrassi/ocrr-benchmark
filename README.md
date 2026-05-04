@@ -195,8 +195,14 @@ What this benchmark and these results do **not** claim, kept honest:
   topic creep) would let static systems score > 0 and reframe the
   comparison as recovery *speed* vs. recovery *possibility*. Open as
   Phase 10.4.
-- **Scale.** Validated up to ~10 k stored entries on the substrate side.
-  HNSW retrieval should scale to ~10 M cleanly; that's a separate study.
+- **Scale.** Headline numbers were validated up to ~10 k stored entries.
+  At that scale brute-force comparison touches every entry and the
+  never-forget property is mechanically guaranteed. Beyond that, the
+  guarantee depends on HNSW retrieval recall (which is approximate). The
+  substrate ships a `force_brute=True` mode for 100%-recall mode at any
+  scale (O(N) latency tradeoff), and a `verify_hnsw_recall()` helper to
+  measure the gap. `scripts/run_substrate_scale_study.py` characterises
+  the gap on synthetic data at user-supplied scales (10 k, 100 k, 1 M).
 - **Encoder choice fixed.** All retrieval-style systems use
   `BAAI/bge-large-en-v1.5`. An encoder-swap ablation (CLIP, CLAP,
   code-bge, or DeBERTa as encoder) is open work.

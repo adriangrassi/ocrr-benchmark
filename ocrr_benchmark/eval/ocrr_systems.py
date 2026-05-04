@@ -46,11 +46,23 @@ class SubstrateSystem(OCRRSystem):
         *,
         k: int = 5,
         margin: float = 0.05,
+        force_brute: bool = False,
     ) -> None:
+        """Substrate classifier over an append-only ledger.
+
+        ``force_brute=True`` makes every retrieval use brute-force cosine
+        similarity over the full ledger instead of HNSW. This guarantees
+        100% recall (no "forgetting via approximate retrieval") at the
+        cost of O(N) latency per query. Recommended for compliance-bound
+        deployments and for the never-forget guarantee at scale; the
+        scaling-study script uses this mode to establish a recall ceiling
+        the HNSW path is benchmarked against.
+        """
         self._seed_vecs = seed_vecs
         self._seed_labels = seed_labels
         self._k = k
         self._margin = margin
+        self._force_brute = force_brute
         self.reset()
 
     def reset(self) -> None:
@@ -60,7 +72,7 @@ class SubstrateSystem(OCRRSystem):
 
     def predict(self, vec: np.ndarray) -> str | None:
         v = vec.astype(np.float32)
-        hits = self.ledger.nearest(v, k=self._k)
+        hits = self.ledger.nearest(v, k=self._k, force_brute=self._force_brute)
         if not hits:
             return None
         top_sim = max(float(s) for _, s in hits)

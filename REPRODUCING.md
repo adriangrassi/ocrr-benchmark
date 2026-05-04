@@ -39,6 +39,7 @@ dtype handling — the substrate / kNN / linear baselines are version-stable.
 | `scripts/run_ocrr_storage_sweep.py` | Storage-vs-recovery Pareto (12 systems × 3 seeds) | ~45 min |
 | `scripts/run_ocrr_ablation.py` | Vote-rule ablation (5 substrate variants × 3 seeds) | ~5 min |
 | `scripts/run_ocrr_lora_deberta.py` | LoRA-DeBERTa-v3-large baseline (3 seeds, RTX 4090) | ~60 min |
+| `scripts/run_substrate_scale_study.py` | Substrate scaling study: HNSW vs brute-force recall@k and accuracy at ledger scales 10 k / 100 k / 1 M (synthetic, validates the never-forget guarantee at scale) | ~5 min at 10 k, ~30 min at 100 k, ~6 hr at 1 M (CPU; brute-force prediction dominates) |
 
 The published `results/` CSVs were produced on commit `c64e665` with the
 versions pinned in `pyproject.toml`.
