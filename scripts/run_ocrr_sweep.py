@@ -53,7 +53,7 @@ from ocrr_benchmark.eval.ocrr_systems import (
 PRED_DIR = Path("data/predictions")
 B77_TRAIN_EMB = PRED_DIR / "bge_large_train_emb.npy"
 B77_TEST_EMB = PRED_DIR / "bge_large_test_emb.npy"
-SEED_CACHE = Path("C:/AI/DEV/Seed/data/cache")
+SEED_CACHE = Path("data/cache")  # populated by scripts/precompute_embeddings.py
 CLINC_COMBINED_PT = SEED_CACHE / "clinc150_combined_BAAI_bge_large_en_v1.5.pt"
 CLINC_TEST_PT = SEED_CACHE / "clinc150_test_BAAI_bge_large_en_v1.5.pt"
 RESEARCH_DIR = Path("research")

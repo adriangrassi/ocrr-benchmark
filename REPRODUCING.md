@@ -29,6 +29,32 @@ Pinned versions are in `pyproject.toml`. Changing transitive versions of
 torch / transformers may shift LoRA-DeBERTa numbers slightly because of
 dtype handling — the substrate / kNN / linear baselines are version-stable.
 
+## Precompute embeddings (one-time, before any sweep)
+
+All `run_ocrr_*.py` scripts read pre-computed `BAAI/bge-large-en-v1.5`
+embeddings of Banking77 and CLINC150 from `data/predictions/` and
+`data/cache/`. Generate them once:
+
+```bash
+python scripts/precompute_embeddings.py            # auto-detects cuda / mps / cpu
+python scripts/precompute_embeddings.py --device mps    # Apple Silicon
+python scripts/precompute_embeddings.py --device cpu    # force CPU
+```
+
+Wall time: ~10 min on RTX 4090, ~15 min on Apple Silicon, ~30-60 min on
+CPU. Outputs:
+
+```
+data/predictions/bge_large_train_emb.npy           (banking77 train)
+data/predictions/bge_large_test_emb.npy            (banking77 test)
+data/cache/clinc150_combined_BAAI_bge_large_en_v1.5.pt
+data/cache/clinc150_test_BAAI_bge_large_en_v1.5.pt
+```
+
+The script downloads the bge-large model (~1.3 GB) on first use and
+caches it under `~/.cache/huggingface/`. Subsequent runs skip work
+already done; pass `--force` to re-encode.
+
 ## Reproduction scripts — what each one does
 
 | Script | Cell in paper | Wall time |
