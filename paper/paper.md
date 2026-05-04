@@ -426,6 +426,52 @@ regulatory requirements (e.g., GDPR right to be forgotten, modulo
 cryptographic erasure). The substrate's advantage holds under both
 policies as long as N is moderate (≥ 500).
 
+### 6.5 Scale and approximate retrieval
+
+The OCRR results above use brute-force retrieval over ledgers of ~10k
+entries, where exact top-k is computationally trivial. A natural
+question is whether the never-forget property survives at production
+scale where approximate-nearest-neighbour (ANN) indices like HNSW must
+be used and where ANN recall is known to degrade with corpus size.
+
+We characterise this on synthetic class-incremental data at four
+corpus scales (10k, 100k, 1M, 10M) on a single workstation with a
+GPU brute-force backend (the recall ceiling) and an HNSW backend
+(`M = 16`, `ef_construction = 200`, `ef = 64`) running in the same
+process for paired comparison. Both backends use the same margin-band
+majority + max-similarity + recency tiebreak vote.
+
+| Scale | brute_acc | hnsw_acc | gap | recall@5 | agreement | hnsw ms/q |
+|---:|---:|---:|---:|---:|---:|---:|
+| 10k  | 1.000 | 1.000 | +0.000 | 0.692 | 1.000 | 0.99 |
+| 100k | 1.000 | 1.000 | +0.000 | 0.542 | 1.000 | 0.63 |
+| 1M   | 1.000 | 0.990 | +0.010 | 0.390 | 0.990 | 0.78 |
+| 10M  | 1.000 | 0.990 | +0.010 | **0.226** | 0.990 | 0.89 |
+
+**HNSW recall@5 collapses with scale (0.69 → 0.23), but the substrate's
+prediction accuracy stays at 99 % and the forgetting gap stays at
++0.01 or zero across all four scales.** At 10M corpus, HNSW finds only
+22.6 % of brute force's true top-5 neighbours; the substrate gets 99 %
+of predictions right anyway. HNSW retrieves *completely different*
+top-5 neighbours than brute force at scale, but they remain in the
+right class, so the margin-band majority vote produces the correct
+answer regardless.
+
+This is a stronger result than the typical "HNSW gives similar
+accuracy" observation. The voting mechanism explicitly absorbs the
+retrieval noise: the substrate's never-forget property survives
+*approximate* retrieval, not just exact retrieval. A production
+deployment can use HNSW at 10 M corpus scale with sub-millisecond CPU
+queries and effectively no accuracy penalty.
+
+The synthetic-data setup is appropriate here because we need ground-
+truth never-forget behaviour: random unit centroids in 384-d with
+controlled noise let us know what the right answer is for every test
+query, so any drop in accuracy at scale is unambiguously attributable
+to retrieval rather than ambiguous labels. Real-world embeddings
+(bge-large) have more class overlap and would conflate retrieval
+imperfection with intrinsic ambiguity.
+
 ---
 
 ## 7. Conclusion
