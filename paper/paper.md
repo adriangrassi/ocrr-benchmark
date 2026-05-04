@@ -212,11 +212,18 @@ Represents the online-ML library literature.
 
 ### 4.3 The substrate
 
-`substrate`: an append-only ledger. `predict(vec)` retrieves k=5 nearest
-neighbours by cosine similarity and votes their labels via a margin-band
-majority count with max-similarity tiebreak (the band keeps neighbours
-within 0.05 cosine of the top hit). `correct(vec, label)` appends the new
-entry to the ledger; no parameter update.
+`substrate`: an append-only ledger with cryptographic hash chaining.
+Each entry stores its embedding, label tag, an SHA-256 hash of its
+content, and a `prev_hash` pointing back to the previous entry's hash
+(genesis sentinel for entry 0); a `verify_integrity()` walk over the
+chain detects any past-entry mutation, deletion, or reorder. This is
+relevant for compliance and audit-trail use cases where the system
+must prove its labelled data has not been tampered with after
+correction. `predict(vec)` retrieves k=5 nearest neighbours by cosine
+similarity and votes their labels via a margin-band majority count
+with max-similarity tiebreak (the band keeps neighbours within 0.05
+cosine of the top hit). `correct(vec, label)` appends the new entry to
+the ledger and extends the hash chain; no parameter update.
 
 ### 4.4 Bounded substrate variants
 
@@ -231,7 +238,10 @@ mechanism — there is no "training phase" exempt from the budget.
 `query_proj` and `value_proj` of every transformer block, plus a 77-output
 classification head over the [CLS] token. Per-correction: forward + backward
 + single SGD step on adapter parameters and head (lr=5e-4). The base
-DeBERTa weights are frozen.
+DeBERTa weights are frozen. Trainable budget: ~786 k LoRA parameters
+across 24 transformer blocks plus ~79 k classification-head parameters
+(≈ 865 k total trainable, vs. ~78 k for `online_linear`'s head-only
+budget; LoRA gets roughly 11× more parameters to absorb each correction).
 
 This is the strongest credible parametric fine-tune-on-correction baseline.
 A reviewer's likely objection — "but you only tested *linear* fine-tune-on-
@@ -492,8 +502,52 @@ truth never-forget behaviour: random unit centroids in 384-d with
 controlled noise let us know what the right answer is for every test
 query, so any drop in accuracy at scale is unambiguously attributable
 to retrieval rather than ambiguous labels. Real-world embeddings
-(bge-large) have more class overlap and would conflate retrieval
-imperfection with intrinsic ambiguity.
+(bge-large) have more class overlap; results on real embeddings are
+expected to be conservative relative to this synthetic ceiling but
+qualitatively similar.
+
+### 6.6 Limitations
+
+We collect the explicit limitations of OCRR v1 in one place:
+
+- **Single language**: Banking77 and CLINC150 are English-only.
+  Recovery dynamics in multilingual or cross-script settings are open.
+- **Categorical shift only**: held-out classes appear in the stream;
+  within-class drift (paraphrases, topic creep on known intents) is
+  not measured. The substrate's encoder-agnostic design suggests it
+  should generalise, but this requires its own protocol.
+- **Oracle label assumption**: corrections are assumed to be correct.
+  Real users supply noisy labels; our `random_50` and `random_10`
+  policies stress-test sparse supervision but not noisy supervision.
+  Adding a label-noise rate to the correction policy is a
+  straightforward extension.
+- **Scale validation on synthetic data**: §6.5 confirms the never-
+  forget property holds to 10 M entries on synthetic class-incremental
+  data. Validation on real-world 10 M-class corpora (e.g., e-commerce
+  product taxonomies) is future work.
+- **Encoder fixed**: all retrieval-style systems use
+  `BAAI/bge-large-en-v1.5`. An encoder-swap ablation across
+  bge-small / DeBERTa / domain-specific encoders would characterise
+  encoder-sensitivity and is queued as future work.
+
+### 6.7 Broader impact
+
+OCRR-style benchmarks support a deployment regime where AI systems
+incorporate user corrections as labelled supervision. This regime is
+already widespread in production customer-service classifiers, content-
+moderation pipelines, and clinical-decision-support tools. Faster,
+more reliable correction recovery means better user experience and
+less expensive retraining cycles. The substrate's audit-trail
+property (§4.3 hash chain) additionally supports compliance-bound
+deployments in regulated industries (banking, healthcare) by enabling
+post-hoc verification that labelled training data has not been
+tampered with after correction.
+
+The principal risk is that a system optimised for *correction-driven
+class expansion* may converge on whatever labels users supply,
+including biased or harmful ones. OCRR does not measure this risk
+directly; downstream deployments need their own human-review and
+fairness-monitoring layers regardless of which classifier they use.
 
 ---
 
@@ -501,7 +555,7 @@ imperfection with intrinsic ambiguity.
 
 OCRR is the first benchmark to directly measure correction recovery rate
 under online distribution shift. Across 162 system runs spanning two
-datasets, three correction policies, and twelve algorithms, the
+datasets, three correction policies, and thirteen systems, the
 substrate — a hash-chained append-only ledger with margin-band majority
 voting — is the only system that simultaneously recovers novel-class
 accuracy and retains original-distribution accuracy. The benchmark is
@@ -516,7 +570,7 @@ way that pure top-k accuracy metrics do not predict, and points to a
 broader question about voting-based retrieval-augmented learning that
 we leave for future work.
 
-We release the harness, all 12 system implementations, both datasets'
+We release the harness, all 13 system implementations, both datasets'
 cached embeddings, and the full per-checkpoint result CSVs. Extending
 OCRR with paraphrase shift, cross-modal scenarios, and more recent CL
 methods (DER++, GDumb, MIR) is straightforward future work; their
