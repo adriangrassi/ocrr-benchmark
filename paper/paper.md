@@ -1,4 +1,4 @@
-# OCRR: Measuring Online Correction Recovery in Classification Systems
+# OCRR: A Benchmark for Online Correction Recovery under Distribution Shift
 
 **Adrian Grassi** \
 Independent Researcher \
@@ -29,7 +29,12 @@ that simultaneously recovers novel-class accuracy (88.7 ± 2.9 %) and
 retains original-distribution accuracy (95.4 ± 0.8 %) — beating the
 next-best published continual-learning baseline by 32.6 percentage points
 at equal memory budget, and beating LoRA-on-DeBERTa-v3-large by 84.6
-percentage points on retention. Code and data are available at
+percentage points on retention. We further find that classification
+accuracy remains stable at 99 % even as approximate-nearest-neighbour
+recall@5 degrades from 0.69 to 0.23 across 10 k → 10 M corpus scales,
+suggesting the substrate's margin-band majority vote is robust to
+retrieval imperfection in a way that pure top-k recall metrics do not
+predict. Code and data are available at
 [github.com/adriangrassi/ocrr-benchmark](https://github.com/adriangrassi/ocrr-benchmark).
 
 ---
@@ -453,8 +458,8 @@ A strict online-learning purist might object that the substrate violates
 the no-historical-storage constraint. The bounded variants address this
 quantitatively. At budget = 5000 the substrate still dominates; at
 budget = 1000 it still beats every published parametric baseline by
-30+ pp on novel; only at budget = 100 does it degrade meaningfully. **At
-any reasonable storage budget, retrieval-based correction beats
+30+ pp on novel; only at budget = 100 does it degrade meaningfully.
+**Within the evaluated budgets, retrieval-based correction beats
 gradient-based.**
 
 ### 6.4 Production implications
