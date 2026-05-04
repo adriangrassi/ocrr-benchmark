@@ -16,8 +16,8 @@ scales (10k, 100k, optionally 1M) to characterise:
   5. ``pred_latency_ms``: per-query wall-time, both backends
 
 A widening gap between hnsw_acc and brute_acc as scale grows is the
-direct empirical signal that "approximate retrieval is starting to cause
-forgetting." A flat gap means the architecture's never-forget claim
+direct empirical signal that approximate retrieval is starting to cause
+forgetting. A flat gap means the architecture's never-forget claim
 holds at the tested scale.
 
 Usage:
@@ -34,9 +34,6 @@ Examples are centroid + Gaussian noise. This guarantees a clear correct
 answer per query (the true class's centroid neighbourhood) so accuracy
 gaps between HNSW and brute-force are unambiguously attributable to
 retrieval rather than ambiguous labels.
-
-Wall time at 1M scale is dominated by brute-force prediction
-(~5-30 s/query on CPU). Limit `--queries` to 50-100 if running 1M.
 """
 
 from __future__ import annotations
@@ -52,11 +49,13 @@ import numpy as np
 from ocrr_benchmark.eval.ocrr_systems import SubstrateSystem
 
 
+# ---------------------------------------------------------------- data helpers
+
 def make_synthetic_corpus(
     n_examples: int, n_classes: int, dim: int, *, seed: int,
     noise_scale: float = 0.3,
 ) -> tuple[np.ndarray, list[str], np.ndarray]:
-    """Generate `n_examples` (vec, label) pairs and a held-out test set.
+    """Generate `n_examples` (vec, label) pairs and a class-centroid table.
 
     Returns (train_vecs, train_labels, centroids).
     `centroids[i]` is the prototype for class `i`. Training examples are
@@ -97,21 +96,23 @@ def make_test_queries(
     return test_vecs, test_labels
 
 
+# ---------------------------------------------------------------- evaluation
+
 def evaluate_substrate(
     substrate: SubstrateSystem, test_vecs: np.ndarray, test_labels: list[str],
 ) -> tuple[float, float, list[str | None]]:
-    """Run substrate over test set; return (accuracy, total_pred_secs, predictions)."""
-    correct = 0
-    preds: list[str | None] = []
+    """Run the substrate over the test set, single-process.
+
+    Returns (accuracy, total_pred_secs, predictions).
+    """
     t0 = time.time()
-    for v, lbl in zip(test_vecs, test_labels):
-        p = substrate.predict(v)
-        preds.append(p)
-        if p == lbl:
-            correct += 1
+    preds = [substrate.predict(v) for v in test_vecs]
     elapsed = time.time() - t0
+    correct = sum(1 for p, lbl in zip(preds, test_labels) if p == lbl)
     return correct / len(test_vecs), elapsed, preds
 
+
+# ---------------------------------------------------------------- driver
 
 def main() -> int:
     parser = argparse.ArgumentParser()
@@ -121,7 +122,7 @@ def main() -> int:
     )
     parser.add_argument("--classes", type=int, default=100)
     parser.add_argument("--dim", type=int, default=384, help="Embedding dim (bge-small=384, bge-large=1024)")
-    parser.add_argument("--queries", type=int, default=200, help="Test queries per scale (sampled across all classes)")
+    parser.add_argument("--queries", type=int, default=200, help="Test queries (sampled across all classes)")
     parser.add_argument("--noise", type=float, default=0.3, help="Per-example noise scale around centroid")
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--output", type=Path, default=Path("results/substrate_scale_study.csv"))
@@ -135,7 +136,7 @@ def main() -> int:
     args.output.parent.mkdir(parents=True, exist_ok=True)
 
     print(f"[scale-study] scales={scales} classes={args.classes} dim={args.dim} "
-          f"queries_per_scale={args.queries}", flush=True)
+          f"queries={args.queries}", flush=True)
     print(f"[scale-study] output -> {args.output}", flush=True)
 
     rows: list[dict] = []
@@ -205,7 +206,7 @@ def main() -> int:
               f"({brute_secs:.1f}s total, {brute_secs / len(test_vecs) * 1000:.1f}ms/query)",
               flush=True)
 
-        # How often HNSW and brute agree on the predicted label
+        # Agreement and forgetting gap
         agreement = sum(1 for h, b in zip(hnsw_preds, brute_preds) if h == b) / len(hnsw_preds)
         forgetting_gap = brute_acc - hnsw_acc
 
@@ -232,7 +233,7 @@ def main() -> int:
             "scale_total_secs": round(scale_secs, 1),
         })
 
-        # Free large matrices before next scale to keep RAM bounded
+        # Free large matrices before next scale to bound RAM
         del substrate_hnsw, substrate_brute, train_vecs
 
     # Write CSV
@@ -251,6 +252,7 @@ def main() -> int:
         print(f"  {r['scale']:>10} {r['recall_at_k']:>9.4f} {r['hnsw_acc']:>9.4f} "
               f"{r['brute_acc']:>10.4f} {r['forgetting_gap']:>+7.4f} "
               f"{r['agreement_rate']:>7.4f}", flush=True)
+
     return 0
 
 
