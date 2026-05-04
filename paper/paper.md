@@ -245,7 +245,7 @@ answered by this row of the results table.
 
 ### 5.1 Headline: substrate dominates the Pareto
 
-[**Figure 1**: storage-vs-final-novel Pareto (`figures/fig1_storage_pareto.png`)]
+![Figure 1: storage-vs-final-novel Pareto. Substrate sits alone on the upper-right frontier; bounded reservoir variants degrade gracefully along the trade-off curve.](figures/fig1_storage_pareto.png)
 
 Banking77, oracle policy, 3 seeds, mean ± std (Table 1):
 
@@ -287,7 +287,7 @@ preserves > 95 % of the benefit.
 
 ### 5.2 Forgetting and the storage trade
 
-[**Figure 2**: recovery curves (`figures/fig2_recovery_curves.png`)]
+![Figure 2: recovery curves on Banking77/oracle. Substrate (top, retains both novel and original); river_logreg learns novel but collapses on original; LoRA-DeBERTa loses 57 pp of original accuracy.](figures/fig2_recovery_curves.png)
 
 `river_logreg` matches the substrate on novel-class accuracy (0.867 vs
 0.905) but exhibits **complete catastrophic forgetting** (0.000 ± 0.000 on
@@ -312,8 +312,9 @@ substrate also retains the original distribution.**
 
 ### 5.4 Cross-dataset generalisation
 
-[**Figure 4** + **Figure 5**: Banking77 / CLINC150 oracle recovery curves
-(`figures/fig4_b77_oracle.png`, `figures/fig5_clinc_oracle.png`)]
+![Figure 4: Banking77 oracle policy, 3 seeds, all 9 systems. Substrate is the only system in the upper-right (high novel + high original).](figures/fig4_b77_oracle.png)
+
+![Figure 5: CLINC150 oracle policy, 3 seeds, all 9 systems. Same ranking as Banking77; substrate's lead over best parametric baseline widens to 78 pp.](figures/fig5_clinc_oracle.png)
 
 The 9-system ranking is identical on Banking77 (77 classes) and CLINC150
 (151 classes). The substrate's lead over the next-best parametric
@@ -322,6 +323,8 @@ CLINC150. **The benchmark generalises across taxonomies of different
 sizes.**
 
 ### 5.5 LoRA on a 1.5B encoder forgets *more*, not less
+
+![Figure 6: LoRA-DeBERTa-v3-large recovery curves on Banking77/oracle, 3 seeds. Original-distribution accuracy collapses from 67.5% to 10.8% as LoRA adapters tune to the held-out class stream.](figures/fig6_lora_deberta.png)
 
 `lora_deberta` (LoRA rank-8 on DeBERTa-v3-large + 77-output head, per-
 correction SGD on adapter parameters) reaches 0.771 ± 0.086 novel but
