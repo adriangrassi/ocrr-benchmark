@@ -25,12 +25,12 @@ retrieval/parametric hybrids (kNN-LM), parameter-efficient fine-tuning of
 a 1.5 B-parameter encoder (LoRA on DeBERTa-v3-large), and a hash-chained
 append-only substrate (*Substrate*). On Banking77 and CLINC150, under
 oracle and sparse correction policies, the substrate is the only system
-that simultaneously recovers novel-class accuracy (90.5 ± 2.7 %) and
-retains original-distribution accuracy (95.0 ± 0.7 %) — beating the
+that simultaneously recovers novel-class accuracy (88.7 ± 2.9 %) and
+retains original-distribution accuracy (95.4 ± 0.8 %) — beating the
 next-best published continual-learning baseline by 32.6 percentage points
-at equal memory budget, and beating LoRA-on-DeBERTa-v3-large by 84.3
-percentage points on retention. We release the benchmark, all runs, and
-all baseline implementations.
+at equal memory budget, and beating LoRA-on-DeBERTa-v3-large by 84.6
+percentage points on retention. Code and data are available at
+[github.com/adriangrassi/ocrr-benchmark](https://github.com/adriangrassi/ocrr-benchmark).
 
 ---
 
@@ -509,10 +509,10 @@ The synthetic-data setup is appropriate here because we need ground-
 truth never-forget behaviour: random unit centroids in 384-d with
 controlled noise let us know what the right answer is for every test
 query, so any drop in accuracy at scale is unambiguously attributable
-to retrieval rather than ambiguous labels. Real-world embeddings
-(bge-large) have more class overlap; results on real embeddings are
-expected to be conservative relative to this synthetic ceiling but
-qualitatively similar.
+to retrieval rather than ambiguous labels. Results on real
+embeddings (bge-large, with natural class overlap) are expected to be
+conservative relative to this synthetic ceiling, but the qualitative
+behaviour should be similar.
 
 ### 6.6 Limitations
 
