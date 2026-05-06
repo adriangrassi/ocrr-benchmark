@@ -1,7 +1,12 @@
 # OCRR — Online Correction Recovery Rate
 
+[![arXiv](https://img.shields.io/badge/arXiv-2605.03153-b31b1b.svg)](https://arxiv.org/abs/2605.03153)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 **A benchmark for measuring how fast classification systems recover from
 distribution shift via online correction.**
+
+📄 **Paper:** [arXiv:2605.03153](https://arxiv.org/abs/2605.03153)
 
 ## TL;DR
 

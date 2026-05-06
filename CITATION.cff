@@ -17,11 +17,15 @@ authors:
   - family-names: Grassi
     given-names: Adrian
     orcid: "https://orcid.org/0009-0007-4890-5393"
-version: 0.1.0
-date-released: "2026-05-03"
+version: 0.2.0
+date-released: "2026-05-06"
 license: MIT
 repository-code: "https://github.com/adriangrassi/ocrr-benchmark"
 url: "https://github.com/adriangrassi/ocrr-benchmark"
+identifiers:
+  - type: other
+    value: "arXiv:2605.03153"
+    description: arXiv preprint
 keywords:
   - machine-learning
   - continual-learning
@@ -32,15 +36,19 @@ keywords:
   - retrieval-augmented
   - lifelong-learning
 preferred-citation:
-  type: generic
+  type: article
   title: >-
-    OCRR: Online Correction Recovery Rate — A Benchmark for
-    Classification Systems Under Distribution Shift
+    OCRR: A Benchmark for Online Correction Recovery under Distribution
+    Shift
   authors:
     - family-names: Grassi
       given-names: Adrian
       orcid: "https://orcid.org/0009-0007-4890-5393"
   year: 2026
-  notes: >-
-    arXiv preprint, NeurIPS Datasets & Benchmarks 2026 submission.
-    arXiv ID will be added once the submission is live.
+  month: 5
+  identifiers:
+    - type: other
+      value: "arXiv:2605.03153"
+      description: arXiv preprint
+  url: "https://arxiv.org/abs/2605.03153"
+  notes: arXiv preprint, NeurIPS Datasets & Benchmarks 2026 submission.
