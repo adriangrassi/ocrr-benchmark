@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "amtb"
+version = "0.1.0-pre"
+description = "Agent Memory Transfer Benchmark — six-axis evaluation for memory systems"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [
+    { name = "Adrian Grassi", email = "adriangrassi@gmail.com" },
+]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "numpy>=1.24",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4",
+]
+
+[project.urls]
+Repository = "https://github.com/adriangrassi/ocrr-benchmark"
+"Pre-Registration" = "https://github.com/adriangrassi/ocrr-benchmark/blob/main/v3-amtb/PRE-REGISTRATION.md"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["amtb*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
