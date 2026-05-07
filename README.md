@@ -249,3 +249,22 @@ The arXiv ID will be inserted here once the submission is live.
 - See [open issues](https://github.com/adriangrassi/ocrr-benchmark/issues) for
   follow-up work (LLM-ICL with frontier-API spot check, cross-modal
   encoder-swap study, convergence theory).
+
+## Lineage — what comes next
+
+This repository hosts the OCRR research program. The OCRR v1 paper above
+introduced retention as a measurable property of memory systems, evaluated
+across one axis (correction-stream retention) on two NLP datasets. Two
+follow-ups are in progress:
+
+| Version | Scope | Status |
+|---|---|---|
+| **OCRR v1** (this paper) | Retention only — single axis, two NLP datasets, 13 systems | Public ([arXiv:2605.03153](https://arxiv.org/abs/2605.03153)) |
+| **OCRR v2** | Retention + cross-modal + adversarial corrections + 10-stage chain | In progress, mid-2026 release |
+| **OCRR v3 / AMTB** — Agent Memory Transfer Benchmark | Six-axis benchmark unifying retention + recall + auditability + cross-modal + scale + adversarial revision | **Pre-registered 2026-05-07** — see [`v3-amtb/`](./v3-amtb) |
+
+**OCRR v3 / AMTB is pre-registered.** The pre-registration locks the
+experimental design (axes, datasets, hypotheses, metrics) before any
+measurements begin. See [`v3-amtb/README.md`](./v3-amtb/README.md) and
+[`v3-amtb/PRE-REGISTRATION.md`](./v3-amtb/PRE-REGISTRATION.md) for full
+details.
